@@ -1,0 +1,29 @@
+09:57:03.318 [Debug] 10mainwindow QThread(0x1aadcc8)
+09:57:03.457 [Debug] loadStyle ”√ ±: 138
+09:57:03.470 [Debug] 16ch_stream_server QThread(0x35b0200)
+09:57:03.474 [Debug] "ch_stream_server port:5883"
+09:57:03.481 [Debug] "[13ch_can_server] port:5886"
+09:57:03.481 [Debug] 14ch_json_server QThread(0x35affd0)
+09:57:03.552 [Warning] QMetaObject::connectSlotsByName: No matching signal for on_btn_enable_output_clicked()
+09:57:34.055 [Debug] auto_connect reply:
+
+09:57:34.055 [Debug] "\r\nCH10X 1.2.5 build Jul 27 2023\r\n2010 - 2023 Copyright by HiPNUC\r\nMODE:           6 AIXS\r\nUUID:           4348A2D35AA4D709\r\nODR:            500Hz\r\nOK\r\n"
+10:03:00.450 [Debug] auto_connect reply:
+
+10:03:00.450 [Debug] "\r\nHI14M0-USB-000 1.5.5 build Aug 22 2024\r\nMODE:           6 AIXS\r\nUUID:           15ADCF5055DB271D\r\nOK\r\n"
+10:05:51.541 [Debug] MainWindow Close
+
+10:05:51.559 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60860
+10:05:51.559 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60862
+10:05:51.560 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60861
+10:05:51.566 [Debug] "[13ch_can_server] client:::ffff:127.0.0.1:60835 disconnet\r\n"
+10:05:51.567 [Debug] "[13ch_can_server] client:::ffff:127.0.0.1:60844 disconnet\r\n"
+10:05:51.567 [Debug] "[13ch_can_server] client:::ffff:127.0.0.1:60857 disconnet\r\n"
+10:05:51.567 [Debug] "[13ch_can_server] client:::ffff:127.0.0.1:60858 disconnet\r\n"
+10:05:51.568 [Debug] client disconnect: "::ffff:127.0.0.1" : 60845
+10:05:51.568 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60847
+10:05:51.568 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60846
+10:05:51.568 [Debug] client disconnect: "::ffff:127.0.0.1" : 60849
+10:05:51.568 [Debug] ch_json_server client disconnect: "::ffff:127.0.0.1" : 60850
+10:05:51.568 [Debug] client disconnect: "::ffff:127.0.0.1" : 60855
+10:05:51.569 [Debug] client disconnect: "::ffff:127.0.0.1" : 60856

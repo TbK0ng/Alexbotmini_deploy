@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+        <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=533bfcbea3314088853de4961ac05a4d"></script>
+    <title>高德地图示例</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html, body, #container {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top:0;
+        }
+    </style>
+</head>
+<body>
+<!-- 添加一个按钮 -->
+<style>
+    /* ... 其他样式 ... */
+    #clearMarkersButton {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000; /* 确保按钮在地图的上方 */
+        padding: 10px;
+        background-color: white;
+    }
+</style>
+<button id="clearMarkersButton">清除标记</button>
+<!-- 地图容器 -->
+<div id="container"></div>
+
+
+<script type="text/javascript">
+
+//wgs84_to_gcj02.js文件
+
+//地标 转 国测 常量
+var x_PI = (3.14159265358979324 * 3000.0) / 180.0;
+var PI = 3.1415926535897932384626;
+var a = 6378245.0; //卫星椭球坐标投影到平面地图坐标系的投影因子。
+var ee = 0.00669342162296594323; //椭球的偏心率。
+
+
+//判断是否在国内，在中国国内的经纬度才需要做偏移
+function out_of_china(lng, lat) {
+    return (
+        lng < 72.004 ||
+        lng > 137.8347 ||
+        (lat < 0.8293 || lat > 55.8271 || false)
+    );
+}
+
+//转化经度
+function transformlng(lng, lat) {
+    var ret =
+        300.0 +
+        lng +
+        2.0 * lat +
+        0.1 * lng * lng +
+        0.1 * lng * lat +
+        0.1 * Math.sqrt(Math.abs(lng));
+    ret +=
+        ((20.0 * Math.sin(6.0 * lng * PI) +
+            20.0 * Math.sin(2.0 * lng * PI)) *
+            2.0) /
+        3.0;
+    ret +=
+        ((20.0 * Math.sin(lng * PI) +
+            40.0 * Math.sin((lng / 3.0) * PI)) *
+            2.0) /
+        3.0;
+    ret +=
+        ((150.0 * Math.sin((lng / 12.0) * PI) +
+            300.0 * Math.sin((lng / 30.0) * PI)) *
+            2.0) /
+        3.0;
+    return ret;
+}
+
+//转化纬度
+function transformlat(lng, lat) {
+    var ret =
+        -100.0 +
+        2.0 * lng +
+        3.0 * lat +
+        0.2 * lat * lat +
+        0.1 * lng * lat +
+        0.2 * Math.sqrt(Math.abs(lng));
+    ret +=
+        ((20.0 * Math.sin(6.0 * lng * PI) +
+            20.0 * Math.sin(2.0 * lng * PI)) *
+            2.0) /
+        3.0;
+    ret +=
+        ((20.0 * Math.sin(lat * PI) +
+            40.0 * Math.sin((lat / 3.0) * PI)) *
+            2.0) /
+        3.0;
+    ret +=
+        ((160.0 * Math.sin((lat / 12.0) * PI) +
+            320 * Math.sin((lat * PI) / 30.0)) *
+            2.0) /
+        3.0;
+    return ret;
+}
+
+//wgs84 to gcj02   地球坐标系 转 火星坐标系
+function wgs84_to_gcj02(lng, lat) {
+    if (out_of_china(lng, lat)) {
+        return [lng, lat];
+    } else {
+        var dlat = transformlat(lng - 105.0, lat - 35.0);
+        var dlng = transformlng(lng - 105.0, lat - 35.0);
+        var radlat = (lat / 180.0) * PI;
+        var magic = Math.sin(radlat);
+        magic = 1 - ee * magic * magic;
+        var sqrtmagic = Math.sqrt(magic);
+        dlat =
+            (dlat * 180.0) /
+            (((a * (1 - ee)) / (magic * sqrtmagic)) * PI);
+        dlng =
+            (dlng * 180.0) / ((a / sqrtmagic) * Math.cos(radlat) * PI);
+        var mglat = lat + dlat;
+        var mglng = lng + dlng;
+
+        return [mglng, mglat];
+    }
+}
+
+
+//gcj02 to wgs84  火星坐标系 转 地球坐标系
+function gcj02_to_wgs84(lng, lat) {
+    if (out_of_china(lng, lat)) {
+        return [lng, lat]
+    }
+    else {
+        var dlat = transformlat(lng - 105.0, lat - 35.0);
+        var dlng = transformlng(lng - 105.0, lat - 35.0);
+        var radlat = lat / 180.0 * PI;
+        var magic = Math.sin(radlat);
+        magic = 1 - ee * magic * magic;
+        var sqrtmagic = Math.sqrt(magic);
+        dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+        dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+        mglat = lat + dlat;
+        mglng = lng + dlng;
+        return [lng * 2 - mglng, lat * 2 - mglat]
+    }
+}
+
+
+
+    // 初始化地图
+    var map = new AMap.Map('container', {
+        zoom: 13,
+        center: [116.397428, 39.90923],
+    });
+    // 添加卫星图层
+        var satelliteLayer = new AMap.TileLayer.Satellite();
+        satelliteLayer.setMap(map);
+
+    // 添加地图类型切换插件
+    map.plugin(["AMap.MapType"], function() {
+        var mapType = new AMap.MapType({
+            defaultType: 1, // 默认显示卫星图
+            showRoad: false  // 不显示路网
+        });
+        map.addControl(mapType);
+    });
+
+
+    // 创建WebSocket连接
+    var ws = new WebSocket('ws://localhost:9090');
+
+    // 当WebSocket连接打开时，发送消息到服务器
+    ws.onopen = function() {
+        ws.send('chromew->server, hello!');
+    };
+
+var isFirstCoordinate = true;  // 用于追踪是否是第一次接收到坐标
+
+ws.onmessage = function(event) {
+
+    if (!window.markers) {
+        window.markers = [];
+    }
+    var parts = event.data.split(',');
+    var lng = parseFloat(parts[0]);
+    var lat = parseFloat(parts[1]);
+    var pos_solq = parseInt(parts[2], 10);
+
+    //if (pos_solq === 0) return; // 如果 pos_solq 是 0，不显示标记
+
+    // 设置标记的颜色
+    var colors = {
+        1: 'blue',
+        4: 'limegreen',
+        5: 'yellow',
+        6: 'red'
+    };
+    var color = colors[pos_solq] || 'gray'; // 默认颜色为灰色
+
+    // 使用 wgs84_to_gcj02 函数进行坐标转换
+    var convertedCoords = wgs84_to_gcj02(lng, lat);
+
+    var marker = new AMap.Marker({
+        position: new AMap.LngLat(convertedCoords[0], convertedCoords[1]), // 使用转换后的坐标
+        // 使用一个红色的圆点图标
+        icon: new AMap.Icon({
+            image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><circle cx='4' cy='4' r='4' fill='" + color + "' /></svg>",
+            size: new AMap.Size(4, 4),
+            imageSize: new AMap.Size(4, 4)
+        }),
+        map: map
+        });
+
+        window.markers.push(marker);
+
+    // 如果是第一次接收到坐标，设置地图的中心
+    if (isFirstCoordinate) {
+        map.setCenter([convertedCoords[0], convertedCoords[1]]);
+        isFirstCoordinate = false;
+    }
+};
+
+
+  // 获取按钮并添加点击事件监听器
+  document.getElementById('clearMarkersButton').addEventListener('click', function() {
+    // 清除所有标记
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
+  });
+
+</script>
+</body>
+</html>
+
+
+
