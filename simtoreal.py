@@ -1,16 +1,27 @@
+#motor import
+import numpy as np
 import time
 import math
 import torch
-import numpy as np
 from collections import deque
 from fi_fsa import fi_fsa_v2
+# #imu import
+import sys
+import os
+import click
+from module.imu.utils import check_python_version
+from module.imu.commands.cmd_list import cmd_list
+from module.imu.commands.read_data import cmd_read
+from module.imu.commands.cmd_send import cmd_send
+
+
 
 class robot:
     # define parameter
     server_ip_list = ['192.168.137.101','192.168.137.10',]
     pos = []   # 12D
     vel = []   # 12D
-    obs = [] # 47D
+    obs = []   # 47D
 
     class cmd:
         vx = 0.4
@@ -18,39 +29,40 @@ class robot:
         dyaw = 0.0
 
     class robot_config:
-                kps = np.array([200, 200, 350, 350, 15, 15, 200, 200, 350, 350, 15, 15], dtype=np.double)
-                kds = np.array([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], dtype=np.double)
-                tau_limit = 200. * np.ones(12, dtype=np.double)
+        kps = np.array([200, 200, 350, 350, 15, 15, 200, 200, 350, 350, 15, 15], dtype=np.double)
+        kds = np.array([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], dtype=np.double)
+        tau_limit = 200. * np.ones(12, dtype=np.double)
 
     class env:
-            # change the observation dim
-            frame_stack = 15
-            c_frame_stack = 3
-            num_single_obs = 47
-            num_observations = int(frame_stack * num_single_obs)
-            single_num_privileged_obs = 73
-            num_privileged_obs = int(c_frame_stack * single_num_privileged_obs)
-            num_actions = 12
-            num_envs = 4096
-            episode_length_s = 24     # episode length in seconds
-            use_ref_actions = False   # speed up training by using reference actions
+        # change the observation dim
+        frame_stack = 15
+        c_frame_stack = 3
+        num_single_obs = 47
+        num_observations = int(frame_stack * num_single_obs)
+        single_num_privileged_obs = 73
+        num_privileged_obs = int(c_frame_stack * single_num_privileged_obs)
+        num_actions = 12
+        num_envs = 4096
+        episode_length_s = 24     # episode length in seconds
+        use_ref_actions = False   # speed up training by using reference actions
 
     class normalization:
-            class obs_scales:
-                lin_vel = 2.0
-                ang_vel = 0.25
-                dof_pos = 1.0
-                dof_vel = 0.05
-                quat = [0, 0, 0, 1]
-                height_measurements = 5.0
-            clip_observations = 100.
-            clip_actions = 100.
-            dt = 0.001
-            # action scale: target angle = actionScale * action + defaultAngle
-            action_scale = 0.25
-            # decimation: Number of control action updates @ sim DT per policy DT
-            decimation = 10  # 100hz
+        class obs_scales:
+            lin_vel = 2.0
+            ang_vel = 0.25
+            dof_pos = 1.0
+            dof_vel = 0.05
+            quat = [0, 0, 0, 1]
+            height_measurements = 5.0
+        clip_observations = 100.
+        clip_actions = 100.
+        dt = 0.001
+        # action scale: target angle = actionScale * action + defaultAngle
+        action_scale = 0.25
+        # decimation: Number of control action updates @ sim DT per policy DT
+        decimation = 10  # 100hz
 
+class module:
     class motors:
         def init():
             server_ip_list = fi_fsa_v2.broadcast_func_with_filter(filter_type="Actuator")
@@ -93,6 +105,15 @@ class robot:
             vel = np.array(vel, dtype=np.double)
             # 返回更新后的 pos 和 vel
             return pos, vel
+
+    class imu:
+        @click.group()
+        def cli():
+            """HiPNUC Python Example"""
+            check_python_version()
+        cli.add_command(cmd_list)
+        cli.add_command(cmd_read)
+        cli.add_command(cmd_send)
 
 class utils:
     def quaternion_to_euler_array(quat):
@@ -170,10 +191,10 @@ class utils:
         target_dq = np.zeros((robot.env.num_actions), dtype=np.double)
         count_lowlevel += 1
 
+# if __name__ == '__main__':
+#     load_model = '/home/nvidia/fftai-alexbotmini/loadmodel/policy_example.pt'
+#     policy = torch.jit.load(load_model)
+#     utils.run(policy)
 
-if __name__ == '__main__':
-    load_model = '/home/nvidia/fftai-alexbotmini/loadmodel/policy_example.pt'
-    policy = torch.jit.load(load_model)
-    utils.run(policy)
-
-
+if __name__ == "__main__":
+    module.imu.cli()
