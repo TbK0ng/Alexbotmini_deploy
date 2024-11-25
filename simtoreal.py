@@ -4,8 +4,8 @@ import time
 import math
 import torch
 from collections import deque
-from fi_fsa import fi_fsa_v2
-# #imu import
+# from fi_fsa import fi_fsa_v2
+#imu import
 import sys
 import os
 import click
