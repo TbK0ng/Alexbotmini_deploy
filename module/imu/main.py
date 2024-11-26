@@ -7,6 +7,7 @@ from commands.read_data import cmd_read
 from commands.cmd_send import cmd_send
 
 @click.group()
+#select which command to process
 def cli():
     """HiPNUC Python Example"""
     check_python_version()

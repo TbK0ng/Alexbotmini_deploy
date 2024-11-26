@@ -1,11 +1,12 @@
-#motor import
+#import motor
 import numpy as np
 import time
 import math
 import torch
 from collections import deque
-# from fi_fsa import fi_fsa_v2
-#imu import
+from fi_fsa import fi_fsa_v2
+
+#import imu 
 import sys
 import os
 import click
@@ -14,6 +15,7 @@ from module.imu.commands.cmd_list import cmd_list
 from module.imu.commands.read_data import cmd_read
 from module.imu.commands.cmd_send import cmd_send
 
+#import joystick
 
 
 class robot:
@@ -196,5 +198,7 @@ class utils:
 #     policy = torch.jit.load(load_model)
 #     utils.run(policy)
 
-if __name__ == "__main__":
-    module.imu.cli()
+# imu test
+# if __name__ == "__main__":
+#     module.imu.cli()
+#     print()

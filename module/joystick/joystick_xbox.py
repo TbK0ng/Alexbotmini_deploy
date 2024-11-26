@@ -6,33 +6,35 @@ from fcntl import ioctl
 print('Welcome to alexbot joystick_xbox')
 
 axis_names = {
-    0x00: 'abs_x',  # 左摇杆X轴
-    0x01: 'abs_y',  # 左摇杆Y轴
-    0x02: 'lt',  # 右摇杆X轴
-    0x03: 'abs_ry',  # 右摇杆Y轴
-    0x04: 'abs_rx',  # 左扳机键（类比L2）
-    0x05: 'rt',  # 右扳机键（类比R2）
-    0x10: 'dpad_x',  # 十字键X轴
-    0x11: 'dpad_y',  # 十字键Y轴
+    0x00: 'abs_lx',     # 左摇杆X轴
+    0x01: 'abs_ly',     # 左摇杆Y轴
+    0x02: 'lt',         # 左扳机键
+    0x03: 'abs_rx',     # 右摇杆x轴
+    0x04: 'abs_ry',     # 右摇杆y轴
+    0x05: 'rt',         # 右扳机键
+    0x10: 'cross_x',    # 十字键X轴
+    0x11: 'cross_y',    # 十字键Y轴
 }
 
 # Xbox手柄按钮名称映射字典，同样根据实际情况调整
 button_names = {
-    0x130: 'button_a',  # A按钮
-    0x131: 'button_b',  # B按钮
-    0x132: 'button_a',  # X按钮
-    0x133: 'button_x',  # Y按钮
-    0x134: 'button_y',  # LB按钮（类比L1）
-    0x135: 'button_b',  # RB按钮（类比R1）
-    0x136: 'button_lb',  # Back按钮（类比Options）
-    0x137: 'button_rb',  # Start按钮（类比Create）
-    0x138: 'button_guide',  # Guide按钮（类比PS按钮）
-    0x139: 'button_xbox',  # Xbox按钮
+    0x130: 'button_a',   # A按钮
+    0x131: 'button_b',   # B按钮
+    0x132: 'button_2',   
+    0x133: 'button_x',   # X按钮
+    0x134: 'button_y',   # Y按钮
+    0x135: 'button_1',   
+    0x136: 'button_lb',  # LB按钮（类比L1）
+    0x137: 'button_rb',  # RB按钮（类比R1）
+    0x13a: 'button_-',   # Start按钮（类比Create）
+    0x13b: 'button_+',   # Guide按钮（类比PS按钮）
+    0x13d: 'button_lpress',   # 左按压按钮
+    0x13e: 'button_rpress',   # 右按压按钮
 }
 
 axis_map = []
 button_map = []
-# 打开PS5手柄设备
+# 打开XBOX手柄设备
 fn = '/dev/input/js0'
 print('Opening %s...' % fn)
 jsdev = open(fn, 'rb')
@@ -42,7 +44,7 @@ def xbox_open(device_path='/dev/input/js0'):
     jsdev = open(fn, 'rb')
 
 # Get the device name.
-#buf = bytearray(63)
+# buf = bytearray(63)
 buf = array.array('B', [0] * 64)
 ioctl(jsdev, 0x80006a13 + (0x10000 * len(buf)), buf) # JSIOCGNAME(len)
 js_name = buf.tobytes().rstrip(b'\x00').decode('utf-8')
@@ -89,14 +91,18 @@ while True:
                     print("%s pressed" % (button))
                 else:
                     print("%s released" % (button))
- 
         if type & 0x02:
             axis = axis_map[number]
             if number==0x01 :
                 value=-value
-            if number==0x05 :
+            if number==0x04 :
                 value=-value
+            if number==0x05 :
+                value=-value 
+            if number==0x02 :
+                value=-value    
             
+
             if value > 5000:
                 fvalue = value / 32767.0
                 axis_names[axis] = fvalue
@@ -105,3 +111,7 @@ while True:
                 fvalue = value / 32767.0
                 axis_names[axis] = fvalue
                 print("%s: %.3f" % (axis, fvalue))
+            # if number==0x11 :
+            #     value=-value
+    # print("原始事件数据 evbuf:", evbuf)
+    # print("解析后的时间、值、类型、编号:", time, value, type, number)
