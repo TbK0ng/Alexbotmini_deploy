@@ -1,9 +1,7 @@
-import os
-import struct
-import array
+import os, struct, array
 from fcntl import ioctl
 
-print('Welcome to alexbot joystick_ps5')
+print('Welcome to alexbot joystick')
 
 axis_names = {
     0x00: 'abs_lx',  # 左摇杆X轴

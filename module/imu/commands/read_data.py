@@ -6,12 +6,11 @@ from module.imu.utils import clear_screen
 from module.imu.parsers.hipnuc_serial_parser import hipnuc_parser
 from module.imu.parsers.hipnuc_nmea_parser import hipnuc_nmea_parser
 
-#read command from terminal
+
+
 @click.command(name='read', short_help='Read data from the specified serial port')
 @click.option('--port', '-p', required=True, help="The serial port to connect to (e.g., COM3 or /dev/ttyUSB0)")
 @click.option('--baudrate', '-b', default='115200', help="The baud rate for the serial connection (default: 115200)")
-
-#main cmd_read here
 def cmd_read(port, baudrate):
     if not baudrate.isdigit() or int(baudrate) <= 0:
         raise click.BadParameter("Invalid baudrate. Baudrate must be a positive integer.")
