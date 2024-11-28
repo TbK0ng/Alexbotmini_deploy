@@ -1,18 +1,15 @@
 from fi_fsa import fi_fsa_v2
-import time
 
 server_ip_list = []
+motors_num = 0
 
 def main():
-    server_ip_list = fi_fsa_v2.broadcast_func_with_filter(filter_type="Actuator")
+    global server_ip_list, motors_num
+    server_ip_list= fi_fsa_v2.broadcast_func_with_filter(filter_type="Actuator")
     if server_ip_list:
-        for j in range(10000):
-            for i in range(len(server_ip_list)):
-                position, velocity, current = fi_fsa_v2.fast_get_pvc(server_ip_list[i])
-                print(
-                    "Position = %f, Velocity = %f, Current = %.4f"
-                    % (position, velocity, current)
-                )
+        motors_num = len(server_ip_list)
 
 if __name__ == "__main__":
     main()
+    print("Server IP List:", server_ip_list)
+    print("Motors Num:", motors_num)
