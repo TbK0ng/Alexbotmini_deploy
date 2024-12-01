@@ -48,8 +48,8 @@ class MOTOR:
             self.dq.append(vel)
         self.q = np.array(self.q) if self.q else np.array([])
         self.dq = np.array(self.dq) if self.dq else np.array([])
-        print("Position array:", self.q[-12:])  # 打印位置数组的前12个元素
-        print("Velocity array:", self.dq[-12:])  # 打印速度数组的前12个元素
+        print("Position array:", self.q[-12:])  # 打印位置数组的后12个元素
+        print("Velocity array:", self.dq[-12:])  # 打印速度数组的后12个元素
         return self.q, self.dq
 
 
