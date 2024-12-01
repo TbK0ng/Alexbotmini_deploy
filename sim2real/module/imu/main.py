@@ -1,7 +1,7 @@
 import sys
 import os
 import click
-from module.imu.utils import check_python_version
+from imu.utils import check_python_version
 from commands.cmd_list import cmd_list
 from commands.read_data import cmd_read
 from commands.cmd_send import cmd_send

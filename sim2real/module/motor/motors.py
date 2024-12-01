@@ -9,7 +9,7 @@ server_ip_list = ['192.168.137.101','192.168.137.102','192.168.137.103',
 motors_num = 12 
 server_ip_list_test =  []
 
-class Motor:
+class MOTOR:
     def __init__(self):
         self.q = []  # 初始化类的属性q为一个空列表
         self.dq = []  # 初始化类的属性dq为一个空列表

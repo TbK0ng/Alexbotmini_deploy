@@ -26,6 +26,7 @@ server_ip_list_test =  []
 motor = Motor()
 target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
+data = []
 ######################################################################
 
 class sim2real_robot_config():
@@ -61,12 +62,12 @@ class robot:
         motor.get_pvc()
         q = motor.q.astype(np.double)
         dq = motor.dq.astype(np.double)
-        # quat = data.sensor('orientation').data[[1, 2, 3, 0]].astype(np.double)
-        r = R.from_quat(quat)
-        v = r.apply(motor.dq[:3], inverse=True).astype(np.double)  # In the base frame
+        quat = data.sensor('orientation').data[[1, 2, 3, 0]].astype(np.double)
+        # r = R.from_quat(quat)
+        # v = r.apply(motor.dq[:3], inverse=True).astype(np.double)  # In the base frame
         # omega = data.sensor('angular-velocity').data.astype(np.double)
         gvec = r.apply(np.array([0., 0., -1.]), inverse=True).astype(np.double)
-        return (q, dq, quat, v, omega, gvec)
+        return (q, dq, quat, gvec)
     
 
     def run_alexbotmini(policy, cfg):
