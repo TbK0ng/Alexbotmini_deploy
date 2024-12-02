@@ -28,8 +28,8 @@ motor = MOTOR()
 target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
 data = []
-# imu init
 
+# imu init
 # If there are multiple USB devices here, 
 # replace them with the actual serial port names.
 port = "/dev/ttyUSB0"
@@ -88,20 +88,6 @@ class robot:
         Returns:
             None
         """
-
-    # model = mujoco.MjModel.from_xml_path(cfg.sim_config.mujoco_model_path)
-    # model.opt.timestep = cfg.sim_config.dt
-    # data = mujoco.MjData(model)
-    # # mujoco.mj_step(model, data)
-    # # viewer = mujoco_viewer.MujocoViewer(model, data)
-
-    # target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
-    # action = np.zeros((cfg.env.num_actions), dtype=np.double)
-
-    # hist_obs = deque()
-    # for _ in range(cfg.env.frame_stack):
-    #     hist_obs.append(np.zeros([1, cfg.env.num_single_obs], dtype=np.double))
-
         count_lowlevel = 0
         while(True):
             # Obtain an observation
@@ -151,22 +137,22 @@ class robot:
             # sleep 10ms
             count_lowlevel += 1
 
-# if __name__ == '__main__':
-#     import argparse
+if __name__ == '__main__':
+    import argparse
 
-#     parser = argparse.ArgumentParser(description='Deployment script.')
-#     parser.add_argument('--load_model', type=str, required=True,
-#                         help='Run to load from.')
-#     parser.add_argument('--terrain', action='store_true', help='terrain or plane')
-#     args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Deployment script.')
+    parser.add_argument('--load_model', type=str, required=True,
+                        help='Run to load from.')
+    parser.add_argument('--terrain', action='store_true', help='terrain or plane')
+    args = parser.parse_args()
 
-#     policy = torch.jit.load(args.load_model)
-#     robot.run_alexbotmini(policy, cfg)
-if __name__ == "__main__":
-    # If there are multiple USB devices here, 
-    # replace them with the actual serial port names.
-    port = "/dev/ttyUSB0"  
-    baudrate = 115200
-    imu = imu.cmd_read(port, baudrate)
-    print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
-    print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素
+    policy = torch.jit.load(args.load_model)
+    robot.run_alexbotmini(policy, cfg)
+# if __name__ == "__main__":
+#     # If there are multiple USB devices here, 
+#     # replace them with the actual serial port names.
+#     port = "/dev/ttyUSB0"  
+#     baudrate = 115200
+#     imu = imu.cmd_read(port, baudrate)
+#     print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
+#     print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素

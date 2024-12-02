@@ -67,7 +67,7 @@ class MOTOR:
 
 
 if __name__ == "__main__":
-    motor = Motor()
+    motor = MOTOR()
     motor.get_motors_ip()
     motor.get_pvc()
     

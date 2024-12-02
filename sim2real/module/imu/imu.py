@@ -55,12 +55,12 @@ class IMU:
 
 
 
-# if __name__ == "__main__":
-#     # If there are multiple USB devices here, 
-#     # replace them with the actual serial port names.
-#     port = "/dev/ttyUSB0"
-#     baudrate = 115200
-#     imu = IMU()
-#     result = imu.cmd_read(port, baudrate)
-#     # print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
-#     # print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素
+if __name__ == "__main__":
+    # If there are multiple USB devices here, 
+    # replace them with the actual serial port names.
+    port = "/dev/ttyUSB0"
+    baudrate = 115200
+    imu = IMU()
+    result = imu.cmd_read(port, baudrate)
+    # print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
+    # print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素
