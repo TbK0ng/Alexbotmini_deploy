@@ -5,28 +5,37 @@ from tqdm import tqdm
 from collections import deque
 
 # import robot config
-from scipy.spatial.transform import Rotation as R
+# from scipy.spatial.transform import Rotation as R
 from config.custom.alexbotmini_config import alexbotminiCfg as cfg
 
 # import module motor
-from sim2real.module.motor.motors import Motor
+from sim2real.module.motor.motors import MOTOR
 from sim2real.module.utils import utils
 
 # import module imu
-from sim2real.module.imu.imu import imu
+from sim2real.module.imu.imu import IMU
 
 
 # init robot & add robot config
+# motor init
 server_ip_list = ['192.168.137.101','192.168.137.102','192.168.137.103',
                   '192.168.137.104','192.168.137.105','192.168.137.106',
                   '192.168.137.107','192.168.137.108','192.168.137.109',
                   '192.168.137.110','192.168.137.111','192.168.137.112'] 
 motors_num = 12 
 server_ip_list_test =  []
-motor = Motor()
+motor = MOTOR()
 target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
 data = []
+# imu init
+
+# If there are multiple USB devices here, 
+# replace them with the actual serial port names.
+port = "/dev/ttyUSB0"
+baudrate = 115200
+imu = IMU()
+
 ######################################################################
 
 class sim2real_robot_config():
@@ -60,13 +69,11 @@ class robot:
         '''Extracts an observation from the real data structure
         '''
         motor.get_pvc()
+        imu.cmd_read(port, baudrate)
         q = motor.q.astype(np.double)
         dq = motor.dq.astype(np.double)
-        quat = data.sensor('orientation').data[[1, 2, 3, 0]].astype(np.double)
-        # r = R.from_quat(quat)
-        # v = r.apply(motor.dq[:3], inverse=True).astype(np.double)  # In the base frame
-        # omega = data.sensor('angular-velocity').data.astype(np.double)
-        gvec = r.apply(np.array([0., 0., -1.]), inverse=True).astype(np.double)
+        quat = imu.quat[-1:].astype(np.double)
+        gvec = imu.gvec[-1:].astype(np.double)
         return (q, dq, quat, gvec)
     
 
@@ -144,20 +151,22 @@ class robot:
             # sleep 10ms
             count_lowlevel += 1
 
-if __name__ == '__main__':
-    import argparse
+# if __name__ == '__main__':
+#     import argparse
 
-    parser = argparse.ArgumentParser(description='Deployment script.')
-    parser.add_argument('--load_model', type=str, required=True,
-                        help='Run to load from.')
-    parser.add_argument('--terrain', action='store_true', help='terrain or plane')
-    args = parser.parse_args()
+#     parser = argparse.ArgumentParser(description='Deployment script.')
+#     parser.add_argument('--load_model', type=str, required=True,
+#                         help='Run to load from.')
+#     parser.add_argument('--terrain', action='store_true', help='terrain or plane')
+#     args = parser.parse_args()
 
-    policy = torch.jit.load(args.load_model)
-    robot.run_alexbotmini(policy, cfg)
-# if __name__ == "__main__":
-#     # If there are multiple USB devices here, 
-#     # replace them with the actual serial port names.
-#     port = "/dev/ttyUSB0"  
-#     baudrate = 115200
-#     imu = imu.cmd_read(port, baudrate)
+#     policy = torch.jit.load(args.load_model)
+#     robot.run_alexbotmini(policy, cfg)
+if __name__ == "__main__":
+    # If there are multiple USB devices here, 
+    # replace them with the actual serial port names.
+    port = "/dev/ttyUSB0"  
+    baudrate = 115200
+    imu = imu.cmd_read(port, baudrate)
+    print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
+    print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素

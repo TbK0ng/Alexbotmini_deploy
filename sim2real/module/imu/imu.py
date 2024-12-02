@@ -28,14 +28,17 @@ class IMU:
             # print("Quaternion: [%.6f, %.6f, %.6f, %.6f]" % (quat_data[0], quat_data[1], quat_data[2], quat_data[3]))
             # # 打印陀螺仪数据（角速度向量），同样使用格式化字符串让输出更规整
             # print("Gyroscope (rad/s): [%.6f, %.6f, %.6f]" % (gvec_data[0], gvec_data[1], gvec_data[2]))
-            print("Quaternion array:", self.quat[-1:])  # 打印quaternion数组的后12个元素
-            print("Gyroscope array:", self.gvec[-1:])  # 打印gyroscope数组的后12个元素
+            # print("Quaternion array:", self.quat[100:])  # 打印quaternion数组的后12个元素
+            # print("Gyroscope array:", self.gvec[100:])  # 打印gyroscope数组的后12个元素
+            # print("Quaternion array:", self.quat)  # 直接打印quaternion数组全部元素
+            # print("Gyroscope array:", self.gvec)  # 直接打印gyroscope数组全部元素
+
 
     def cmd_read(self, port, baudrate):
         serial_parser = hipnuc_parser()
         latest_hipnuc_frame = None
         read_count = 0  # 用于记录已读取的次数
-        max_read_count = 1  # 设置最大读取次数为1次
+        max_read_count = 2  # 设置最大读取次数为1次
 
         with serial.Serial(port, int(baudrate), timeout=1) as ser:
             while read_count < max_read_count:
@@ -52,12 +55,12 @@ class IMU:
 
 
 
-if __name__ == "__main__":
-    # If there are multiple USB devices here, 
-    # replace them with the actual serial port names.
-    port = "/dev/ttyUSB0"
-    baudrate = 115200
-    imu = IMU()
-    result = imu.cmd_read(port, baudrate)
-    print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
-    print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素
+# if __name__ == "__main__":
+#     # If there are multiple USB devices here, 
+#     # replace them with the actual serial port names.
+#     port = "/dev/ttyUSB0"
+#     baudrate = 115200
+#     imu = IMU()
+#     result = imu.cmd_read(port, baudrate)
+#     # print("Quaternion array:", imu.quat[-1:])  # 打印quaternion数组的后12个元素
+#     # print("Gyroscope array:", imu.gvec[-1:])  # 打印gyroscope数组的后12个元素
