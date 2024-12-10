@@ -255,7 +255,7 @@
                     "MotorHardwareType": "H58V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 3000,
+                    "MotorMaxSpeed": 4850,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -513,7 +513,7 @@
                     "MotorHardwareType": "H100V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 2000,
+                    "MotorMaxSpeed": 3650,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -549,7 +549,7 @@
                     "MotorHardwareType": "H54V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 5300,
+                    "MotorMaxSpeed": 6000,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -567,7 +567,7 @@
                     "MotorHardwareType": "H54V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 4500,
+                    "MotorMaxSpeed": 5150,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -585,7 +585,7 @@
                     "MotorHardwareType": "H58V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 3000,
+                    "MotorMaxSpeed": 5150,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -603,7 +603,7 @@
                     "MotorHardwareType": "H66V202",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 3400,
+                    "MotorMaxSpeed": 6000,
                     "MotorMaxAcceleration": 60000
                 }
             }
@@ -621,7 +621,7 @@
                     "MotorHardwareType": "H100V100",
                     "ActuatorCommHardwareType" : "V2",
                     "MotorMaxCurrent": 100,
-                    "MotorMaxSpeed": 2300,
+                    "MotorMaxSpeed": 2900,
                     "MotorMaxAcceleration": 60000
                 }
             }

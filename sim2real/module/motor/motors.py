@@ -13,22 +13,23 @@ class MOTOR:
     def __init__(self):
         self.q = []  # 初始化类的属性q为一个空列表
         self.dq = []  # 初始化类的属性dq为一个空列表
-
+        self.current_positions = [0,0,0,0,0,0,0,0,0,0,0,0]
     def get_motors_ip(self):
         """
         初始化电机对象，在初始化时获取该电机对应的服务器IP地址
         """
         server_ip_list_test = fi_fsa_v2.broadcast_func_with_filter(filter_type="Actuator")
+        if not isinstance(server_ip_list_test, list):
+            raise TypeError("Can not find motor, please check the wire or reboot motor.")
         motors_num_test = len(server_ip_list_test)
         if motors_num_test == 12:
             print("Server IP List:", server_ip_list)
-            print("Motors Num:", 12)   
+            print("Motors Num:", 12)
         else:
-            print('Lost connection of motors' )
+            print('Lost connection of motors')
             print("Server IP List:", server_ip_list_test)
             print("Motors Num:", motors_num_test)
             raise ValueError('Lost connection of motors. The number of motors is not 12.')
-
 
     def get_pvc(self):
         """
@@ -40,30 +41,75 @@ class MOTOR:
         """
         for i in range(len(server_ip_list)):
             position, velocity, current = fi_fsa_v2.fast_get_pvc(server_ip_list[i])
-            # 将position转换为指定格式（numpy.double类型）
+            # 将position转换为指定格式（numpy.double类型）rad
             pos = np.array(position).astype(np.double)* (np.pi / 180)
-            # 将velocity转换为指定格式（numpy.double类型）
+            # 将velocity转换为指定格式（numpy.double类型）rad
             vel = np.array(velocity).astype(np.double)* (np.pi / 180)
             self.q.append(pos)
             self.dq.append(vel)
-        print("Position array:", self.q[-12:])  # 打印位置数组的后12个元素
-        print("Velocity array:", self.dq[-12:])  # 打印速度数组的后12个元素
+        # print("Position array:", self.q[-12:])  # 打印位置数组的后12个元素
+        # print("Velocity array:", self.dq[-12:])  # 打印速度数组的后12个元素
         return self.q, self.dq
 
 
-    # def set_position_control():
+    def set_position_mode(self):
+        # enable all the motors
+        for i in range(len(server_ip_list)):
+            fi_fsa_v2.fast_set_enable(server_ip_list[i])
+
+        # set work at position control mode
+        for i in range(len(server_ip_list)):
+            fi_fsa_v2.fast_set_mode_of_operation(
+                server_ip_list[i], fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL
+            )
+        # for i in range(len(server_ip_list)):
+        #     target_position = 0
+        #     fi_fsa_v2.fast_set_position_control(server_ip_list[i], target_position)
+        #     print('position is : ',target_position)
+
+    def set_current_mode(self):
+        """
+        设置所有电机为电流控制模式
+        """
+        # enable all the motors
+        for i in range(len(server_ip_list)):
+            fi_fsa_v2.fast_set_enable(server_ip_list[i])
+        # set work at current control mode    
+        for i in range(len(server_ip_list)):
+            fi_fsa_v2.fast_set_mode_of_operation(
+                server_ip_list[i], fi_fsa_v2.FSAModeOfOperation.CURRENT_CONTROL
+            )
+
+    def set_current(self, current_value):
+        """
+        设置电机电流值
+        参数：
+        - current_value：要设置的电流值，应该是一个和电机数量对应的numpy数组或列表，元素单位等需根据实际情况确定
+        """
+        for i in range(len(server_ip_list)):
+            fi_fsa_v2.fast_set_current_control(server_ip_list[i], current_value[i])
+
+
+    # def set_position_control(self, target_position):
     #     """
-    #     设置电机的位置控制模式，将电机设置到目标位置
+    #     设置电机的位置控制模式，将电机平滑地设置到目标位置
     #     参数：
-    #     - target_position：目标位置值（具体单位等需根据实际情况确定，示例中传入的单位类似角度[deg]）
+    #     - target_position：目标位置值，应该是一个和电机数量对应的numpy数组，元素单位等需根据实际情况确定（示例中类似角度[deg]）
     #     """
-    #     fi_fsa_v2.fast_set_enable(self.server_ip)
-    #     fi_fsa_v2.fast_set_mode_of_operation(
-    #         self.server_ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL
-    #     )
-    #     fi_fsa_v2.fast_set_position_control(self.server_ip, target_position)
+    #     # 假设插值步数为10（可根据需要调整）
+    #     interpolation_steps = 10  
+    #     for i in range(len(server_ip_list)):
+    #         start_position = self.current_positions[i]  # 使用存储的当前位置作为起始位置
+    #         end_position = target_position[i]
+    #         interpolated_positions = MOTOR.linear_interpolation(start_position, end_position, interpolation_steps)
+    #         for pos in interpolated_positions:
+    #             fi_fsa_v2.fast_set_position_control(server_ip_list[i], pos)
+    #             print('position is : ', pos)
+    #     # 在完成所有插值位置设置后更新当前位置
+    #     for i in range(len(server_ip_list)):
+    #         self.current_positions[i] = target_position[i]
 
-
+                
 if __name__ == "__main__":
     motor = MOTOR()
     motor.get_motors_ip()

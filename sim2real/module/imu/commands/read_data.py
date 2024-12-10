@@ -2,9 +2,9 @@ import sys
 import time
 import serial
 import click
-from module.imu.utils import clear_screen
-from module.imu.parsers.hipnuc_serial_parser import hipnuc_parser
-from module.imu.parsers.hipnuc_nmea_parser import hipnuc_nmea_parser
+from imu.utils import clear_screen
+from imu.parsers.hipnuc_serial_parser import hipnuc_parser
+from imu.parsers.hipnuc_nmea_parser import hipnuc_nmea_parser
 
 
 

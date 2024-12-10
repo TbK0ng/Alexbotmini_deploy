@@ -20,9 +20,9 @@ def main():
 
         # change motors into target position
         for i in range(len(server_ip_list)):
-            set_position = 0  # [deg]
+            set_position = 10  # [deg]
             fi_fsa_v2.fast_set_position_control(server_ip_list[i], set_position)
-        # time.sleep(0.01)
+
 
 if __name__ == "__main__":
     main()
