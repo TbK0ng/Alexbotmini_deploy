@@ -31,7 +31,7 @@ class utils:
         roll_x_deg = roll_x * 180 / 3.14
         pitch_y_deg = pitch_y * 180 / 3.14
         yaw_z_deg = yaw_z * 180 / 3.14
-        print('roll_x, pitch_y, yaw_z is:', roll_x_deg, pitch_y_deg, yaw_z_deg)
+        print('roll_x, pitch_y, yaw_z is:(deg)', roll_x_deg, pitch_y_deg, yaw_z_deg)
 
         # Returns roll, pitch, yaw in a NumPy array in radians
         return np.array([roll_x, pitch_y, yaw_z])

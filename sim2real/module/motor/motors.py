@@ -47,8 +47,8 @@ class MOTOR:
             vel = np.array(velocity).astype(np.double)* (np.pi / 180)
             self.q.append(pos)
             self.dq.append(vel)
-        # print("Position array:", self.q[-12:])  # 打印位置数组的后12个元素
-        # print("Velocity array:", self.dq[-12:])  # 打印速度数组的后12个元素
+        # print("Position array:(rad)", self.q[-12:])  # 打印位置数组的后12个元素
+        # print("Velocity array:(rad)", self.dq[-12:])  # 打印速度数组的后12个元素
         return self.q, self.dq
 
 
@@ -90,29 +90,25 @@ class MOTOR:
             fi_fsa_v2.fast_set_current_control(server_ip_list[i], current_value[i])
 
 
-    # def set_position_control(self, target_position):
-    #     """
-    #     设置电机的位置控制模式，将电机平滑地设置到目标位置
-    #     参数：
-    #     - target_position：目标位置值，应该是一个和电机数量对应的numpy数组，元素单位等需根据实际情况确定（示例中类似角度[deg]）
-    #     """
-    #     # 假设插值步数为10（可根据需要调整）
-    #     interpolation_steps = 10  
-    #     for i in range(len(server_ip_list)):
-    #         start_position = self.current_positions[i]  # 使用存储的当前位置作为起始位置
-    #         end_position = target_position[i]
-    #         interpolated_positions = MOTOR.linear_interpolation(start_position, end_position, interpolation_steps)
-    #         for pos in interpolated_positions:
-    #             fi_fsa_v2.fast_set_position_control(server_ip_list[i], pos)
-    #             print('position is : ', pos)
-    #     # 在完成所有插值位置设置后更新当前位置
-    #     for i in range(len(server_ip_list)):
-    #         self.current_positions[i] = target_position[i]
+    def set_position(self, target_position):
+        """
+        设置电机的位置控制模式，将电机平滑地设置到目标位置
+        参数：
+        - target_position：目标位置值，应该是一个和电机数量对应的numpy数组，元素单位等需根据实际情况确定（示例中类似角度[deg]）
+        """
+        for i in range(len(server_ip_list)):
+            # fi_fsa_v2.fast_set_position_control(server_ip_list[i], target_position[i])
+            fi_fsa_v2.set_position_control(server_ip_list[i], target_position[i])
+            # time.sleep(0.05)
+            print('position is : ', target_position[i])
 
-                
+
+
 if __name__ == "__main__":
     motor = MOTOR()
     motor.get_motors_ip()
     motor.get_pvc()
+    # motor.set_position_mode()
+    # motor.set_position()
     
     

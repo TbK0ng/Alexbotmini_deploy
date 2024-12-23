@@ -15,7 +15,7 @@ def main():
             print(ret)
             time.sleep(1)
 
-        time.sleep(3)
+        time.sleep(1)
 
         for i in range(len(server_ip_list)):
             fi_fsa_v2.reboot(server_ip_list[i])
