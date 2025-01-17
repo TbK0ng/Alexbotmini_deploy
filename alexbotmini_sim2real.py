@@ -28,8 +28,7 @@ server_ip_list_test = []
 motor = MOTOR()
 
 # imu init
-# If there are multiple USB devices here, 
-# replace them with the actual serial port names.
+# If there are multiple USB devices here, replace them with the actual serial port names.
 # sudo chmod a+rw /dev/ttyUSB0
 port = "/dev/ttyUSB0"
 baudrate = 115200
@@ -44,18 +43,18 @@ action = np.zeros((cfg.env.num_actions), dtype=np.double)
 default_joint_angles = {
     # = target angles [degree] when action = 0.0
     # in real, not in urdf
-    'leftjoint1': -12,
+    'leftjoint1': -10,
     'leftjoint2': 0.,
     'leftjoint3': 0.,
-    'leftjoint4': 36,
-    'leftjoint5': -20,
-    'leftjoint6': 20.,
-    'rightjoint1': 12,
+    'leftjoint4': 18,
+    'leftjoint5': -8,
+    'leftjoint6': 8.,
+    'rightjoint1': 10,
     'rightjoint2': 0.,
     'rightjoint3': 0.,
-    'rightjoint4': -36,
-    'rightjoint5': 20,
-    'rightjoint6': 20,
+    'rightjoint4': -18,
+    'rightjoint5': 8,
+    'rightjoint6': 8,
 }
 
 class robot_config:
@@ -63,11 +62,9 @@ class robot_config:
     kds = np.array([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], dtype=np.double)
     tau_limit = np.array([30, 20, 20, 30, 0, 0, 30, 20, 20, 30, 0, 0], dtype=np.double)
     target_q_limit = np.array([1, 0.35, 0.5, 1, 0, 0, 1, 0.35, 0.5, 1, 0, 0], dtype=np.double)
-    # 定义电机系数
-    motor_coefficients = np.array([2.44224, 2.359782, 2.359782, 2.44224, 1.887, 1.887, 2.44224, 2.359782, 2.359782, 2.44224, 1.887, 1.887])
-
+   
 class cmd:
-    # Tobe changed into joystick
+    # TODO: changed into joystick
     vx = 0.4
     vy = 0.0
     dyaw = 0.0
@@ -79,11 +76,11 @@ class robot:
         self.init()
 
     def init(self):
-        # motor init
+        # motor init， FFTAIZ_fsa position control is base on current(force) control
         motor.get_motors_ip()
         motor.set_position_mode()
         motor.get_pvc()
-        # motor.set_current_mode()
+        
 
         # 设置电机初始条件
         self.set_initial_angles()
@@ -103,9 +100,7 @@ class robot:
         print("joint_angles的数据格式:", joint_angles.dtype)
         print("joint_angles的数据内容:", joint_angles)
         motor.set_position(joint_angles)
-        # = target angles [rad] when action = 0.0
-        # init_position = np.array([-0.2*180/3.14, 0., 0., 0.6*180/3.14, -0.4*180/3.14, 0., 0.2*180/3.14, 0., 0., -0.6*180/3.14, 0.4*180/3.14, 0., ], dtype=np.double)
-        # motor.set_position(init_position)
+        
 
     def get_obs(self):
         motor.get_pvc()
@@ -171,7 +166,7 @@ class robot:
                 action = policy(policy_input)[0].detach().numpy()
                 action = np.clip(action, -cfg.normalization.clip_actions, cfg.normalization.clip_actions)
                 target_q = action * cfg.control.action_scale
-
+                # 并联脚
                 # 以下是新增代码，保持特定电机的位置不变
                 fixed_indices = [4, 5, 10, 11]  # 对应motor5、motor6、motor11、motor12的索引（假设索引从0开始）
                 for index in fixed_indices:
@@ -179,7 +174,7 @@ class robot:
                     target_q[index] = target_q[index] 
 
                 target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
-                motor.set_position(target_q * 180 / 3.14)  # 设置电机位置时转换回角度
+                # motor.set_position(target_q * 180 / 3.14)  # 设置电机位置时转换回角度
 
                 print('target_q = :(rad)', target_q)  # rad
                 print('target_q = :(deg)', target_q * 180 / 3.14)  # deg
@@ -190,16 +185,6 @@ class robot:
             # # Generate PD control
             # tau = utils.pd_control(target_q, q, robot_config.kps, target_dq, dq, robot_config.kds)  # Calc torques
             # tau = np.clip(tau, -robot_config.tau_limit, robot_config.tau_limit)  # Clamp torques
-
-            # # 根据电机编号和定义的系数计算current
-            # current = np.zeros_like(tau)
-            # for i in range(len(tau)):
-            #     current[i] = tau[i] / robot_config.motor_coefficients[i]
-            # print('target_q_degree = :', target_q * 180 / math.pi)  # degree
-            # print('tau = :', tau)
-            # print('current = :', current)
-            # # motor.set_current(current)
-            # count_lowlevel += 1
 
 
 if __name__ == '__main__':
