@@ -53,36 +53,21 @@ class MOTOR:
             fi_fsa_v2.fast_set_mode_of_operation(ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL)
 
 
-    def set_position(self, target_position):
-        """
-        设置电机的位置控制模式，使用样条插值将电机平滑地设置到目标位置
-        参数:
-        - target_position: 目标位置值，应该是一个和电机数量对应的numpy数组，元素单位等需根据实际情况确定（示例中类似角度[deg]）
-        """
-        if len(target_position)!= self.motors_num:
-            raise ValueError("The length of target_position should match the number of motors.")
-
-        _, _ = self.get_pvc()
-
-        # 定义插值的点数，可根据实际情况调整
-        num_interpolation_points = 10
-        interpolation_times = np.linspace(0, 1, num_interpolation_points)
-
-        for motor_idx in range(self.motors_num):
-            start_pos = self.current_positions[motor_idx]
-            end_pos = target_position[motor_idx]
-
-            # 创建三次样条插值对象
-            cs = CubicSpline([0, 1], [start_pos, end_pos])
-
-            # 根据插值时间点计算对应的位置序列
-            interpolation_positions = cs(interpolation_times)
-
-            for pos in interpolation_positions:
-                interpolated_target = np.array([pos])
-                for ip in self.server_ip_list:
-                    fi_fsa_v2.fast_set_position_control(ip, interpolated_target)
-                time.sleep(0.001)  # 适当的延迟，让电机有时间响应，可根据实际调整
+    def set_position(self, target_position, num_interpolation=10):
+        # 获取当前位置
+        current_positions = self.get_pvc()[0]
+        # change motors into target position through interpolation
+        for i in range(len(self.server_ip_list)):
+            # 从 target_position 列表中取出一个元素作为最终位置参数，并确保它是浮点数
+            target_pos = target_position[i]
+            # 从 current_positions 列表中取出一个元素作为起始位置参数，并确保它是浮点数
+            current_pos = current_positions[i]
+            # 生成从当前位置到目标位置的插值序列
+            interpolation_sequence = np.linspace(current_pos, target_pos, num_interpolation)
+            for position in interpolation_sequence:
+                # 将电机设置到相应的插值位置
+                fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], position)
+                
 
 
 if __name__ == "__main__":

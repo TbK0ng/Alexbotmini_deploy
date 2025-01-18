@@ -36,7 +36,7 @@ class IMU:
                             gvec_data_2 = np.array(latest_hipnuc_frame.gyr[2]).astype(np.double) * (np.pi / 180)
                             self.gvec_data = np.array([gvec_data_0, gvec_data_1, gvec_data_2])
                         read_count += 1
-                time.sleep(0.01)
+                
                 
 
         return self.quat_data, self.gvec_data

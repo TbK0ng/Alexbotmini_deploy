@@ -27,7 +27,7 @@ class MOTOR:
             print('Lost connection of motors')
             print("Server IP List:", server_ip_list_test)
             print("Motors Num:", len(server_ip_list_test))
-            raise ValueError('Lost connection of motors. We only find',self.motors_num,'motor(s)')
+            raise ValueError('Lost connection of motors. We only find',len(server_ip_list_test),'motor(s)')
         return server_ip_list_test
 
     def get_pvc(self):#(degree)
@@ -81,11 +81,11 @@ if __name__ == "__main__":
         # 从 init_position 到 target2_position 的柔顺运动
         for position in interpolation_sequence1:
             motor.set_position(position)
-            # time.sleep(0.005)  # 减小时间间隔，加快位置更新频率
+            time.sleep(0.005)  # 减小时间间隔，加快位置更新频率
         # 从 target2_position 回到 init_position 的柔顺运动
         for position in interpolation_sequence2:
             motor.set_position(position)
-            # time.sleep(0.005)
+            time.sleep(0.005)
 
 # if __name__ == "__main__":
 #     motor = MOTOR()
