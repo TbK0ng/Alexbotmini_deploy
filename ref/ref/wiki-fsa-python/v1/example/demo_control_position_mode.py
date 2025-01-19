@@ -30,7 +30,7 @@ def main():
                 "Position = %.2f, Velocity = %.3f, Current = %.4f"
                 % (pvc[0], pvc[1], pvc[2])
             )
-            time.sleep(0.01)
+            time.sleep(0.00001)
 
         print("\n")
         time.sleep(1)

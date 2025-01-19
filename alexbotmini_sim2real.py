@@ -108,7 +108,7 @@ class robot:
             q = np.array(q)
             dq = np.array(dq)
 
-            if count_lowlevel % 10 == 0:
+            if count_lowlevel % 1 == 0:
                 obs = np.zeros([1, cfg.env.num_single_obs], dtype=np.float32)
                 # 这里假设quat是符合要求的格式（比如一维数组等，如果不符合还需进一步处理，如前面提到的解包相关调整）
                 eu_ang = utils.quaternion_to_euler_array(quat)
@@ -147,7 +147,6 @@ class robot:
                 # print('target_q = :(rad)', target_q)  # rad
                 print('target_q = :(deg)', target_q * 180 / 3.14)  # deg
                 # motor.set_position(target_q)
-                time.sleep(0.0001)
             count_lowlevel += 1
 
             

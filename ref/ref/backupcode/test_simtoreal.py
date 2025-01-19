@@ -77,7 +77,7 @@ class module:
                 # set position control to 0.0
                 for i in range(len(server_ip_list)):
                     fi_fsa_v2.set_position_control(server_ip_list[i], 0.0)
-                time.sleep(8)
+                time.sleep(2)
 
         def pos_control():
             global pos, vel, server_ip_list

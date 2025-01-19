@@ -65,7 +65,7 @@ def cmd_read(port, baudrate):
                     except Exception as e:
                         print(f"Error parsing data: {e}")
 
-                time.sleep(0.001)  # Small delay to prevent CPU overuse
+                time.sleep(0.0001)  # Small delay to prevent CPU overuse
 
     except KeyboardInterrupt:
         print("Program interrupted by user")

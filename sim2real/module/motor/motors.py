@@ -76,6 +76,10 @@ if __name__ == "__main__":
     motor.set_position_mode()
 
     # 假设要设置的目标位置，这里示例为全0位置，你可以替换为实际需要的目标位置数组
-    target_position = [10,10,10,10,10,10,10,10,10,10,10,10]
-    motor.set_position(target_position)
+    while 1:
+        target_position1 = [10,10,10,10,10,10,10,10,10,10,10,10]
+        target_position2 = [0,0,0,0,0,0,0,0,0,0,0,0]
+        motor.set_position(target_position1)
+        motor.set_position(target_position2)
+
     
