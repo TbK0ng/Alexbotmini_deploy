@@ -8,9 +8,9 @@ import time
 class MOTOR:
     def __init__(self):
         self.server_ip_list = ['192.168.137.101', '192.168.137.102', '192.168.137.103',
-                            '192.168.137.104', '192.168.137.105', '192.168.137.106',
-                            '192.168.137.107', '192.168.137.108', '192.168.137.109',
-                            '192.168.137.110', '192.168.137.111', '192.168.137.112']
+                               '192.168.137.104', '192.168.137.105', '192.168.137.106',
+                               '192.168.137.107', '192.168.137.108', '192.168.137.109',
+                               '192.168.137.110', '192.168.137.111', '192.168.137.112']
         self.motors_num = len(self.server_ip_list)
         self.q = []
         self.dq = []
@@ -69,8 +69,8 @@ if __name__ == "__main__":
     motor = MOTOR()
     server_ip_list = motor.get_motors_ip()
     motor.set_position_mode()
-    target2_position = np.array([-40, 0, 0, 68, -28, 28, 40, 0, 0, -68, 28, 28])
-    init_position = np.array([-10, 0, 0, 18, -8, 8, 10, 0, 0, -18, 8, 8])
+    target2_position = np.array([60, 0, 0, -100, -36, 36, -60, 0, 0, 100, 36, 36])
+    init_position = np.array([10, 0, 0, -18, -8, 8, -10, 0, 0, 18, 8, 8])
     num_interpolation = 20  # 增加插值点数，使运动轨迹更细腻
     # 生成从 init_position 到 target2_position 的插值序列
     interpolation_sequence1 = np.linspace(init_position, target2_position, num_interpolation + 1)

@@ -53,7 +53,7 @@ class MOTOR:
             fi_fsa_v2.fast_set_mode_of_operation(ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL)
 
 
-    def set_position(self, target_position, num_interpolation=10):
+    def set_position(self, target_position, num_interpolation=20):
         # 获取当前位置
         current_positions = self.get_pvc()[0]
         # change motors into target position through interpolation
@@ -67,7 +67,21 @@ class MOTOR:
             for position in interpolation_sequence:
                 # 将电机设置到相应的插值位置
                 fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], position)
-                
+                # time.sleep(0.00001)
+    # def set_position(self, target_position):
+    #     # # 获取当前位置
+    #     # current_positions = self.get_pvc()[0]
+    #     # # change motors into target position through interpolation
+    #     for i in range(len(self.server_ip_list)):
+    #     #     # 从 target_position 列表中取出一个元素作为最终位置参数，并确保它是浮点数
+    #     #     target_pos = target_position[i]
+    #     #     # 从 current_positions 列表中取出一个元素作为起始位置参数，并确保它是浮点数
+    #     #     current_pos = current_positions[i]
+    #     #     # 生成从当前位置到目标位置的插值序列
+    #     #     interpolation_sequence = np.linspace(current_pos, target_pos, num_interpolation)
+    #     #     for position in interpolation_sequence:
+    #     #         # 将电机设置到相应的插值位置
+    #             fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], target_position)           
 
 
 if __name__ == "__main__":
@@ -77,9 +91,9 @@ if __name__ == "__main__":
 
     # 假设要设置的目标位置，这里示例为全0位置，你可以替换为实际需要的目标位置数组
     while 1:
-        target_position1 = [10,10,10,10,10,10,10,10,10,10,10,10]
+        # target_position1 = [10,10,10,10,10,10,10,10,10,10,10,10]
         target_position2 = [0,0,0,0,0,0,0,0,0,0,0,0]
-        motor.set_position(target_position1)
+        # motor.set_position(target_position1)
         motor.set_position(target_position2)
 
     

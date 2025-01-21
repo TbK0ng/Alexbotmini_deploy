@@ -40,8 +40,8 @@ target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
 
 class robot_config:
-    kps = np.array([145, 115, 115, 145, 55, 55, 145, 115, 115, 145, 55, 55], dtype=np.double)
-    kds = np.array([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], dtype=np.double)
+    kps = np.array([68.7, 51.5, 51.5, 68.7, 25.7, 25.7, 68.7, 51.5, 51.5, 68.7, 25.7, 25.7], dtype=np.double)
+    kds = np.array([18, 18, 18, 18, 6, 6, 18, 18, 18, 18, 6, 6], dtype=np.double)
     tau_limit = np.array([30, 20, 20, 30, 0, 0, 30, 20, 20, 30, 0, 0], dtype=np.double)
     target_q_limit = np.array([1, 0.35, 0.5, 1, 0, 0, 1, 0.35, 0.5, 1, 0, 0], dtype=np.double)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
@@ -100,7 +100,24 @@ class robot:
         action = np.zeros((cfg.env.num_actions), dtype=np.double)
 
         count_lowlevel = 0
+
+        default_angle = np.zeros((cfg.env.num_actions),dtype=np.double)
+
+        default_angle[0] = cfg.init_state.default_joint_angles['rightjoint1']
+        default_angle[1] = cfg.init_state.default_joint_angles['rightjoint2']
+        default_angle[2] = cfg.init_state.default_joint_angles['rightjoint3']
+        default_angle[3] = cfg.init_state.default_joint_angles['rightjoint4']
+        default_angle[4] = cfg.init_state.default_joint_angles['rightjoint5']
+        default_angle[5] = cfg.init_state.default_joint_angles['rightjoint6']
+        default_angle[6] = cfg.init_state.default_joint_angles['leftjoint1']
+        default_angle[7] = cfg.init_state.default_joint_angles['leftjoint2']
+        default_angle[8] = cfg.init_state.default_joint_angles['leftjoint3']
+        default_angle[9] = cfg.init_state.default_joint_angles['leftjoint4']
+        default_angle[10] = cfg.init_state.default_joint_angles['leftjoint5']
+        default_angle[11] = cfg.init_state.default_joint_angles['leftjoint6']
+                
         while True:
+            start_time = time.time()
             # Obtain an observation
             q, dq, quat, gvec = self.get_obs()
             q = q[-12:]
@@ -119,7 +136,7 @@ class robot:
                 obs[0, 2] = cmd.vx * cfg.normalization.obs_scales.lin_vel
                 obs[0, 3] = cmd.vy * cfg.normalization.obs_scales.lin_vel
                 obs[0, 4] = cmd.dyaw * cfg.normalization.obs_scales.ang_vel
-                obs[0, 5:17] = q * cfg.normalization.obs_scales.dof_pos
+                obs[0, 5:17] = (q-default_angle)* cfg.normalization.obs_scales.dof_pos
                 obs[0, 17:29] = dq * cfg.normalization.obs_scales.dof_vel
                 obs[0, 29:41] = action
                 obs[0, 41:44] = gvec
@@ -137,7 +154,7 @@ class robot:
 
                 action = policy(policy_input)[0].detach().numpy()
                 action = np.clip(action, -cfg.normalization.clip_actions, cfg.normalization.clip_actions)
-                target_q = action * cfg.control.action_scale
+                target_q = action * cfg.control.action_scale + default_angle
                 # 并联脚
                 
 
@@ -147,9 +164,12 @@ class robot:
                 # print('target_q = :(rad)', target_q)  # rad
                 print('target_q = :(deg)', target_q * 180 / 3.14)  # deg
                 # motor.set_position(target_q)
+                end_time = time.time()
+                execution_time = end_time - start_time
+                print(f"一帧的执行时间为: {execution_time} 秒")
+
             count_lowlevel += 1
 
-            
             
             # # Generate PD control
             # tau = utils.pd_control(target_q, q, robot_config.kps, target_dq, dq, robot_config.kds)  # Calc torques
@@ -158,6 +178,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test4/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy, cfg)
