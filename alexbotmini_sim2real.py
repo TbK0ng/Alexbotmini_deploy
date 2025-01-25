@@ -40,7 +40,7 @@ target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
 
 class robot_config:
-    # # PD Drive parameters:
+    #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
     kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
@@ -75,8 +75,6 @@ class robot:
         # motor.get_pvc()
         # imu init
         # imu.cmd_read(port, baudrate)
-
-    
 
     def get_obs(self):
         motor.get_pvc()
