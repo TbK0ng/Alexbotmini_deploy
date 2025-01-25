@@ -40,12 +40,16 @@ target_q = np.zeros((cfg.env.num_actions), dtype=np.double)
 action = np.zeros((cfg.env.num_actions), dtype=np.double)
 
 class robot_config:
-    kps = np.array([68.7, 51.5, 51.5, 68.7, 25.7, 25.7, 68.7, 51.5, 51.5, 68.7, 25.7, 25.7], dtype=np.double)
-    kds = np.array([18, 18, 18, 18, 6, 6, 18, 18, 18, 18, 6, 6], dtype=np.double)
+    # # PD Drive parameters:
+    #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
+    #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
+    kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
+    kds = np.array([3, 2, 2, 3, 1, 1, 3, 2, 2, 3, 1, 1,], dtype=np.double)
+
     tau_limit = np.array([30, 20, 20, 30, 0, 0, 30, 20, 20, 30, 0, 0], dtype=np.double)
     target_q_limit = np.array([1, 0.35, 0.5, 1, 0, 0, 1, 0.35, 0.5, 1, 0, 0], dtype=np.double)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
-    default_joint_angles=np.array([-10, 0, 0, 18, -8, 8, 10, 0, 0, -18, 8, 8], dtype=np.double)
+    default_joint_angles=np.array([10, 0, 0, -18, -8, 8, -10, 0, 0, 18, 8, 8], dtype=np.double)
 
 class cmd:
     # TODO: changed into joystick
@@ -60,7 +64,7 @@ class robot:
         self.init()
 
     def init(self):
-        # motor init， FFTAIZ_fsa position control is base on current(force) control
+        # motor init， FFTAI_fsa position control is base on current(force) control
         motor.get_motors_ip()
         motor.set_position_mode()
         motor.get_pvc()
@@ -72,7 +76,7 @@ class robot:
         # imu init
         # imu.cmd_read(port, baudrate)
 
-
+    
 
     def get_obs(self):
         motor.get_pvc()
@@ -178,6 +182,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/test4/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test5_0125/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy, cfg)

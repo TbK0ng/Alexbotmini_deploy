@@ -50,38 +50,38 @@ class MOTOR:
         """
         for ip in self.server_ip_list:
             fi_fsa_v2.fast_set_enable(ip)
-            fi_fsa_v2.fast_set_mode_of_operation(ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL)
+            # fi_fsa_v2.fast_set_mode_of_operation(ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL)
+            fi_fsa_v2.fast_set_mode_of_operation(ip, fi_fsa_v2.FSAModeOfOperation.POSITION_CONTROL_PD)
 
+    def set_pd_imm(self):
+        # TODO: 
+        # PD Drive parameters:
+        # stiffness = {'1': 200.0, '2': 120.0, '3': 120.0, '4': 200.0, '5': 30 , '6': 30}
+        # damping = {'1': 10, '2': 10, '3': 10, '4': 10, '5': 10 , '6' : 10}
+        kp = [200,120,120,200,30,30,200,120,120,200,30,30]
+        kd = [10,10,10,10,10,10,10,10,10,10,10,10]
+        for i,ip in enumerate(self.server_ip_list):
+            fi_fsa_v2.fast_set_pd_imm(ip,kp[i],kd[i])
 
-    def set_position(self, target_position, num_interpolation=20):
-        # 获取当前位置
-        current_positions = self.get_pvc()[0]
-        # change motors into target position through interpolation
-        for i in range(len(self.server_ip_list)):
-            # 从 target_position 列表中取出一个元素作为最终位置参数，并确保它是浮点数
-            target_pos = target_position[i]
-            # 从 current_positions 列表中取出一个元素作为起始位置参数，并确保它是浮点数
-            current_pos = current_positions[i]
-            # 生成从当前位置到目标位置的插值序列
-            interpolation_sequence = np.linspace(current_pos, target_pos, num_interpolation)
-            for position in interpolation_sequence:
-                # 将电机设置到相应的插值位置
-                fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], position)
-                # time.sleep(0.00001)
-    # def set_position(self, target_position):
-    #     # # 获取当前位置
-    #     # current_positions = self.get_pvc()[0]
-    #     # # change motors into target position through interpolation
+    # def set_position(self, target_position, num_interpolation=20):
+    #     # 获取当前位置
+    #     current_positions = self.get_pvc()[0]
+    #     # change motors into target position through interpolation
     #     for i in range(len(self.server_ip_list)):
-    #     #     # 从 target_position 列表中取出一个元素作为最终位置参数，并确保它是浮点数
-    #     #     target_pos = target_position[i]
-    #     #     # 从 current_positions 列表中取出一个元素作为起始位置参数，并确保它是浮点数
-    #     #     current_pos = current_positions[i]
-    #     #     # 生成从当前位置到目标位置的插值序列
-    #     #     interpolation_sequence = np.linspace(current_pos, target_pos, num_interpolation)
-    #     #     for position in interpolation_sequence:
-    #     #         # 将电机设置到相应的插值位置
-    #             fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], target_position)           
+    #         # 从 target_position 列表中取出一个元素作为最终位置参数，并确保它是浮点数
+    #         target_pos = target_position[i]
+    #         # 从 current_positions 列表中取出一个元素作为起始位置参数，并确保它是浮点数
+    #         current_pos = current_positions[i]
+    #         # 生成从当前位置到目标位置的插值序列
+    #         interpolation_sequence = np.linspace(current_pos, target_pos, num_interpolation)
+    #         for position in interpolation_sequence:
+    #             # 将电机设置到相应的插值位置
+    #             # fi_fsa_v2.fast_set_position_control(self.server_ip_list[i], position)
+    #             fi_fsa_v2.fast_set_pd_control(self.server_ip_list[i], position)
+
+    def set_position(self, target_position):
+        for i in range(len(self.server_ip_list)):
+            fi_fsa_v2.fast_set_pd_control(self.server_ip_list[i], target_position[i])
 
 
 if __name__ == "__main__":
