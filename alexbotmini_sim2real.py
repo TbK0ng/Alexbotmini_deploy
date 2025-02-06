@@ -43,8 +43,8 @@ class robot_config:
     #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
-    kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
-    kds = np.array([3, 2, 2, 3, 1, 1, 3, 2, 2, 3, 1, 1,], dtype=np.double)
+    # kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
+    # kds = np.array([3, 2, 2, 3, 1, 1, 3, 2, 2, 3, 1, 1,], dtype=np.double)
 
     tau_limit = np.array([30, 20, 20, 30, 0, 0, 30, 20, 20, 30, 0, 0], dtype=np.double)
     target_q_limit = np.array([1, 0.35, 0.5, 1, 0, 0, 1, 0.35, 0.5, 1, 0, 0], dtype=np.double)
@@ -180,6 +180,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/test5_0125/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test6/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy, cfg)
