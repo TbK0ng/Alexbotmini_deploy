@@ -1,23 +1,13 @@
 import numpy as np
 import math
 
-"""
-从后往前看，motor5是右侧的电机，motor6是左侧的电机
-对于alexbotmini而言：
-右脚：
-motor5 ip: 192.168.1.105 坐标系：从前往后看，x轴向前，y轴向右，z轴向上 
-motor6 ip: 192.168.1.106 坐标系：从前往后看，x轴向前，y轴向右，z轴向上
-左脚：
-motor1 ip: 192.168.1.111 坐标系：从前往后看，x轴向前，y轴向右，z轴向上
-motor2 ip: 192.168.1.112 坐标系：从前往后看，x轴向前，y轴向右，z轴向上
-"""
-
 # 常量定义
 ANKLE_MOTOR5_OFFSET = math.pi - 0.046181  # 请替换为实际值
 ANKLE_MOTOR6_OFFSET = math.pi - 0.046181  # 请替换为实际值
 
-
-class Wrist:
+class AnkleJointModule:
+    #对于左腿而言
+    @staticmethod
     def ankle_joint_fk(motor5, motor6):
         """
         输出结果为pitch角和roll角，单位为rad
@@ -29,12 +19,12 @@ class Wrist:
         error = 1
         i = 0
         while error > 1e-7:
-            result_ik = Wrist.ankle_joint_ik(result_n0[0], result_n0[1])
+            result_ik = AnkleJointModule.ankle_joint_ik(result_n0[0], result_n0[1])
             
             f[0] = result_ik[0] - motor5
             f[1] = result_ik[1] - motor6
             
-            jacobian = Wrist.ankle_joint_ik_Jacobian(result_n0[0], result_n0[1])
+            jacobian = AnkleJointModule.ankle_joint_ik_Jacobian(result_n0[0], result_n0[1])
             result_n1 = result_n0 - np.linalg.inv(jacobian) @ f
             
             error = np.linalg.norm(result_n0 - result_n1)
@@ -45,7 +35,7 @@ class Wrist:
         print(f"迭代次数为: {i}")
         return (result_n1[0], result_n1[1])
 
-
+    @staticmethod
     def ankle_joint_ik(pitch, roll):
         """
         输出结果为第五个，第六个关节电机的角度
@@ -83,8 +73,8 @@ class Wrist:
         cycle_para4 = np.array([foot_coordinate_left_[0], foot_coordinate_left_[2], 
                                 np.sqrt(pole6_length**2 - (motor6_coordinate[1] - foot_coordinate_left_[1])**2)])
 
-        result5 = Wrist.cycle_cycle_compute(cycle_para1, cycle_para2)
-        result6 = Wrist.cycle_cycle_compute(cycle_para3, cycle_para4)
+        result5 = AnkleJointModule.cycle_cycle_compute(cycle_para1, cycle_para2)
+        result6 = AnkleJointModule.cycle_cycle_compute(cycle_para3, cycle_para4)
 
         x5, z5 = (result5[0], result5[1]) if result5[0] < result5[2] else (result5[2], result5[3])
         x6, z6 = (result6[0], result6[1]) if result6[0] < result6[2] else (result6[2], result6[3])
@@ -106,14 +96,15 @@ class Wrist:
 
         return (motor5_angle - ANKLE_MOTOR5_OFFSET, motor6_angle - ANKLE_MOTOR6_OFFSET)
 
+    @staticmethod
     def ankle_joint_ik_Jacobian(pitch, roll):
         delta = 0.001
         Jacobian = np.zeros((2, 2))
         
-        ik_plus_pitch = Wrist.ankle_joint_ik(pitch + delta, roll)
-        ik_minus_pitch = Wrist.ankle_joint_ik(pitch - delta, roll)
-        ik_plus_roll = Wrist.ankle_joint_ik(pitch, roll + delta)
-        ik_minus_roll = Wrist.ankle_joint_ik(pitch, roll - delta)
+        ik_plus_pitch = AnkleJointModule.ankle_joint_ik(pitch + delta, roll)
+        ik_minus_pitch = AnkleJointModule.ankle_joint_ik(pitch - delta, roll)
+        ik_plus_roll = AnkleJointModule.ankle_joint_ik(pitch, roll + delta)
+        ik_minus_roll = AnkleJointModule.ankle_joint_ik(pitch, roll - delta)
         
         Jacobian[0, 0] = (ik_plus_pitch[0] - ik_minus_pitch[0]) / (2 * delta)
         Jacobian[0, 1] = (ik_plus_roll[0] - ik_minus_roll[0]) / (2 * delta)
@@ -122,7 +113,7 @@ class Wrist:
         
         return Jacobian
 
-
+    @staticmethod
     def cycle_cycle_compute(cycle1_para, cycle2_para):
         """
         圆的三个参数，分别为圆心x，y坐标，半径
@@ -135,9 +126,9 @@ class Wrist:
                         cycle1_para[1]**2 - cycle2_para[1]**2 - 
                         cycle1_para[2]**2 + cycle2_para[2]**2)
         
-        return Wrist.cycle_linear_compute(cycle1_para, linear_para)
+        return AnkleJointModule.cycle_linear_compute(cycle1_para, linear_para)
 
-
+    @staticmethod
     def cycle_linear_compute(cycle_para, linear_para):
         """
         圆的三个参数，分别为圆心x，y坐标，半径
@@ -164,18 +155,3 @@ class Wrist:
             y2 = k * x2 + b
         
         return np.array([x1, y1, x2, y2])
-
-if __name__ == "__main__":
-    # ik test (rad)
-    print("ik test(rad):")
-    pitch = 0.8
-    roll = -0.4
-    motor5, motor6 =  Wrist.ankle_joint_ik(pitch, roll)
-    print(f"motor5: {motor5}, motor6: {motor6}")
-    
-    # fk test (rad)
-    print("fk test(rad):")
-    motor5 = 0.6
-    motor6 = 0.3
-    pitch, roll = Wrist.ankle_joint_fk(motor5, motor6)
-    print(f"pitch: {pitch}, roll: {roll}")

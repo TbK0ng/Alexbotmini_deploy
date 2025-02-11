@@ -27,8 +27,8 @@
 #
 # Copyright (c) 2024 Beijing RobotEra TECHNOLOGY CO.,LTD. All rights reserved.
 
-
-from config.base.legged_robot_config import LeggedRobotCfg, LeggedRobotCfgPPO
+# based on the original code of the humanoidgym humanoid environment
+from humanoid.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobotCfgPPO
 
 
 class alexbotminiCfg(LeggedRobotCfg):
@@ -44,7 +44,7 @@ class alexbotminiCfg(LeggedRobotCfg):
         single_num_privileged_obs = 73
         num_privileged_obs = int(c_frame_stack * single_num_privileged_obs)
         num_actions = 12
-        num_envs = 1000
+        num_envs = 2048
         episode_length_s = 24  # episode length in seconds
         use_ref_actions = False
 
@@ -61,16 +61,16 @@ class alexbotminiCfg(LeggedRobotCfg):
         foot_name = "6"
         knee_name = "4"
 
-        terminate_after_contacts_on = ['dummy_link','rightlink2','leftlink2']
-        penalize_contacts_on = ['dummy_link','rightlink2','leftlink2']
+        terminate_after_contacts_on = ['base_link','rightlink2','leftlink2','rightlink1','leftlink1']
+        penalize_contacts_on = ['base_link','rightlink2','leftlink2','rightlink1','leftlink1']
         self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
         replace_cylinder_with_capsule = False
         fix_base_link = False
 
     class terrain(LeggedRobotCfg.terrain):
-        #mesh_type = 'plane'
-        mesh_type = 'trimesh'
+        mesh_type = 'plane'
+        # mesh_type = 'trimesh'
         curriculum = False
         # rough terrain only:
         measure_heights = False
@@ -98,27 +98,42 @@ class alexbotminiCfg(LeggedRobotCfg):
             height_measurements = 0.1
 
     class init_state(LeggedRobotCfg.init_state):
-        pos = [0.0, 0.0, 0.70]
+        pos = [0.0, 0.0, 0.73]
 
         default_joint_angles = {  # = target angles [rad] when action = 0.0
-            'leftjoint1': -0.2,
+            'leftjoint1': -0.174,
             'leftjoint2': 0.,
             'leftjoint3': 0.,
-            'leftjoint4': 0.6,
-            'leftjoint5': -0.4,
+            'leftjoint4': 0.314,
+            'leftjoint5': 0.14,
             'leftjoint6': 0.,
-            'rightjoint1': 0.2,
+            'rightjoint1': 0.174,
             'rightjoint2': 0.,
             'rightjoint3': 0.,
-            'rightjoint4': -0.6,
-            'rightjoint5': 0.4,
+            'rightjoint4': -0.314,
+            'rightjoint5': -0.14,
             'rightjoint6': 0.,
         }
 
+        # default_joint_angles = {  # = target angles [rad] when action = 0.0
+        #     'leftjoint1': -0.3,
+        #     'leftjoint2': 0.,
+        #     'leftjoint3': 0.,
+        #     'leftjoint4': 0.8,
+        #     'leftjoint5': 0.5,
+        #     'leftjoint6': 0.,
+        #     'rightjoint1': 0.3,
+        #     'rightjoint2': 0.,
+        #     'rightjoint3': 0.,
+        #     'rightjoint4': -0.8,
+        #     'rightjoint5': -0.5,
+        #     'rightjoint6': 0.,
+        # }
+
     class control(LeggedRobotCfg.control):
         # PD Drive parameters:
-        stiffness = {'1': 120.0, '2': 80.0, '3': 80.0, '4': 120.0, '5': 15 , '6': 15}
-        damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 0.3, '6' : 0.3}
+        stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
+        damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
         # decimation: Number of control action updates @ sim DT per policy DT
@@ -126,7 +141,7 @@ class alexbotminiCfg(LeggedRobotCfg):
 
     class sim(LeggedRobotCfg.sim):
         dt = 0.001  # 1000 Hz
-        substeps = 1  # 2
+        substeps = 1  
         up_axis = 1  # 0 is y, 1 is z
 
         class physx(LeggedRobotCfg.sim.physx):
@@ -147,7 +162,7 @@ class alexbotminiCfg(LeggedRobotCfg):
         randomize_friction = True
         friction_range = [0.1, 2.0]
         randomize_base_mass = True
-        added_mass_range = [-2., 2.]
+        added_mass_range = [-1, 1]
         push_robots = True
         push_interval_s = 4
         max_push_vel_xy = 0.2
@@ -161,9 +176,9 @@ class alexbotminiCfg(LeggedRobotCfg):
         heading_command = True  # if true: compute ang vel command from heading error
 
         class ranges:
-            lin_vel_x = [-0.3, 0.3]  # min max [m/s]
+            lin_vel_x = [-0.3, 0.6]   # min max [m/s]
             lin_vel_y = [-0.3, 0.6]   # min max [m/s]
-            ang_vel_yaw = [-0.3, 0.3]    # min max [rad/s]
+            ang_vel_yaw = [-0.3, 0.3] # min max [rad/s]
             heading = [-3.14, 3.14]
 
     class rewards:
@@ -171,38 +186,38 @@ class alexbotminiCfg(LeggedRobotCfg):
         min_dist = 0.2
         max_dist = 0.5
         # put some settings here for LLM parameter tuning
-        target_joint_pos_scale = 0.17    # rad
-        target_feet_height = 0.04       # m
+        target_joint_pos_scale = 0.25    # rad
+        target_feet_height = 0.06        # m
         cycle_time = 0.64                # sec
         # if true negative total rewards are clipped at zero (avoids early termination problems)
         only_positive_rewards = False
         # tracking reward = exp(error*sigma)
         tracking_sigma = 5
-        max_contact_force = 200  # Forces above this value are penalized
+        max_contact_force = 400  # Forces above this value are penalized
 
         class scales:
             # reference motion tracking
             joint_pos = 2.0
             feet_clearance = 2.0
-            feet_contact_number = 2.5
+            feet_contact_number = 1.2
             # gait
-            feet_air_time = 2.5
-            foot_slip = -0.12
-            feet_distance = 0.2
-            knee_distance = 0.2
+            feet_air_time = 2.8
+            foot_slip = -0.15
+            feet_distance = 0.3
+            knee_distance = 0.3
             # contact
             feet_contact_forces = -0.01
             # vel tracking
-            tracking_lin_vel = 1.4
-            tracking_ang_vel = 1.1
+            tracking_lin_vel = 1.6
+            tracking_ang_vel = 1.5
             vel_mismatch_exp = 0.5  # lin_z; ang x,y
             low_speed = 0.2
             track_vel_hard = 0.5
             # base pos
-            default_joint_pos = 0.35
-            orientation = 1.
-            base_height = 0.2
-            base_acc = 0.2
+            default_joint_pos = 0.4
+            orientation = 1.2
+            base_height = 0.25
+            base_acc = 0.3
             # energy
             action_smoothness = -0.002
             torques = -1e-5
@@ -243,7 +258,7 @@ class alexbotminiCfgPPO(LeggedRobotCfgPPO):
         policy_class_name = 'ActorCritic'
         algorithm_class_name = 'PPO'
         num_steps_per_env = 60  # per iteration
-        max_iterations = 3000  # number of policy updates
+        max_iterations = 12001  # number of policy updates
 
         # logging
         save_interval = 100  # Please check for potential savings every `save_interval` iterations.

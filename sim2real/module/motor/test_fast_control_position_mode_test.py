@@ -61,6 +61,11 @@ def set_position(target_position):
 
 if __name__ == "__main__":
     # 目标位置，这里示例为全 0 位置，可根据实际修改
-    # target_position = [20,20,20,20,20,20,20,20,20,20,20,20]
-    target_position = [0,0,0,0,0,0,0,0,0,0,0,0]
+    # target_position = [30,30,30,20,20,20,20,20,20,20,20,20]
+    # target_position = [0,0,0,0,0,0,0,0,0,0,0,0]
+    target_position = [0,0,0,0,0,
+                       0,0,0,0,0
+                       ,0,0,0,0,0,
+                       0,0,0,0,0]
+
     set_position(target_position)
