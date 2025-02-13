@@ -71,7 +71,7 @@ if __name__ == "__main__":
     motor.set_position_mode()
     time.sleep(1)
     target2_position = np.array([-60, 0, 0, 100, 36,36, 60, 0, 0, -100, -36, 36])
- 
+    # target2_position = np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8])
     init_position = np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8])
     num_interpolation = 45  # 增加插值点数，使运动轨迹更细腻
     # 生成从 init_position 到 target2_position 的插值序列

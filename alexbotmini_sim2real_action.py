@@ -64,11 +64,11 @@ server_ip_list = ['192.168.137.101', '192.168.137.102', '192.168.137.103',
 motors_num = 12
 server_ip_list_test = []
 motor = MOTOR()
-for i in range(len(server_ip_list)):
-     _ = motor.fi_fsa_v2.fast_set_pd_imm(server_ip_list[i], kp, kd)
+
 # imu init
 # If there are multiple USB devices here, replace them with the actual serial port names.
 # sudo chmod a+rw /dev/ttyUSB0
+__import__('os').system('sudo chmod a+rw /dev/ttyUSB0')
 port = "/dev/ttyUSB0"
 baudrate = 115200
 n = 1
@@ -154,7 +154,7 @@ class robot:
         default_angle[11] = robot_config.default_joint_angles[11]
 
         pt = 0
-        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions.pt', map_location=device)
+        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions_mujoco.pt', map_location=device)
         dt = 0.01
         while True:
 

@@ -8,7 +8,7 @@ from collections import deque
 # import robot config
 # from scipy.spatial.transform import Rotation as R
 # from config.custom.alexbotmini_config import alexbotminiCfg as cfg
-
+# sudo chmod a+rw /dev/ttyUSB0
 # import module motor
 from sim2real.module.motor.motors import MOTOR
 from sim2real.module.utils import utils
@@ -22,10 +22,12 @@ class robot_config:
     #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
-    kps = np.array([120, 90, 90, 120, 30, 30, 120, 90, 90, 120, 30, 30], dtype=np.double)
+    kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
     kds = np.array([10, 8, 8, 10, 2.5, 2.5, 10, 8, 8, 10, 2.5, 2.5,], dtype=np.double)
 
-    target_q_limit = np.array([3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314, 3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314], dtype=np.double)
+    # target_q_limit = np.array([3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314, 3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314], dtype=np.double)
+    target_q_limit = np.array([60, 18, 18, 60, 18, 18, 60, 18, 18, 60, 18, 18,], dtype=np.double)
+    target_q_limit = np.deg2rad(target_q_limit)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
     default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
     # -10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8
@@ -67,7 +69,7 @@ motor = MOTOR()
 
 # imu init
 # If there are multiple USB devices here, replace them with the actual serial port names.
-# sudo chmod a+rw /dev/ttyUSB0
+__import__('os').system('sudo chmod a+rw /dev/ttyUSB0')
 port = "/dev/ttyUSB0"
 baudrate = 115200
 n = 1
@@ -80,7 +82,8 @@ action = np.zeros((robot_config.num_actions), dtype=np.double)
 
 class cmd:
     # TODO: changed into joystick
-    vx = 0.0
+    # vx = 0.0
+    vx = 0.4
     vy = 0.0
     dyaw = 0.0
 
@@ -147,16 +150,22 @@ class robot:
         default_angle[9] = robot_config.default_joint_angles[9]
         default_angle[10] = robot_config.default_joint_angles[10]
         default_angle[11] = robot_config.default_joint_angles[11]
+        default_angle_rad = np.deg2rad(default_angle)
+
         dt=0.01
 
+        policy_input = np.zeros([1, robot_config.env.num_observations], dtype=np.float32)
         while True:
             start_time = time.time()
             # Obtain an observation
-            q, dq, quat, gvec = self.get_obs()
+            q, dq, quat, omega = self.get_obs()
             q = q[-12:]
             dq = dq[-12:]
             q = np.array(q)
             dq = np.array(dq)
+            q = np.deg2rad(q)
+            dq = np.deg2rad(dq)
+            omega = np.deg2rad(omega)
 
             if count_lowlevel % 1 == 0:
                 obs = np.zeros([1, robot_config.env.num_single_obs], dtype=np.float32)
@@ -165,47 +174,47 @@ class robot:
                 eu_ang[eu_ang > math.pi] -= 2 * math.pi
 
                
-                obs[0, 0] = math.sin(2 * math.pi * count_lowlevel * 0.001 / 0.64)
-                obs[0, 1] = math.cos(2 * math.pi * count_lowlevel * 0.001 / 0.64)
+                obs[0, 0] = math.sin(2 * math.pi * count_lowlevel * dt / 0.64)
+                obs[0, 1] = math.cos(2 * math.pi * count_lowlevel * dt / 0.64)
                 obs[0, 2] = cmd.vx * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 3] = cmd.vy * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 4] = cmd.dyaw * robot_config.normalization.obs_scales.ang_vel
-                obs[0, 5:17] = (q*3.14/180-default_angle*3/14/180)* robot_config.normalization.obs_scales.dof_pos
-                obs[0, 17:29] = dq*3.14/180* robot_config.normalization.obs_scales.dof_vel
+                obs[0, 5:17] = (q-default_angle_rad)* robot_config.normalization.obs_scales.dof_pos
+                obs[0, 17:29] = dq* robot_config.normalization.obs_scales.dof_vel
                 obs[0, 29:41] = action
-                obs[0, 41:44] = gvec
+                obs[0, 41:44] = omega
                 obs[0, 44:47] = eu_ang
                 # Limit the data within the range from -cfg.normalization.clip_observations to cfg.normalization.clip_observations
                 obs = np.clip(obs, -robot_config.normalization.clip_observations, robot_config.normalization.clip_observations)
-                print("obs[0, 0] = ",math.sin(2 * math.pi * count_lowlevel * 0.001 / 0.64))
-                print("obs[0, 1] = ",math.cos(2 * math.pi * count_lowlevel * 0.001  / 0.64))
-                print("obs[0, 2] = ",cmd.vx * robot_config.normalization.obs_scales.lin_vel)
-                print("obs[0, 3] = ",cmd.vy * robot_config.normalization.obs_scales.lin_vel)
-                print("obs[0, 4] = ",cmd.dyaw * robot_config.normalization.obs_scales.ang_vel)
-                print("obs[0, 5:17] = ",(q*3.14/180 - default_angle*3.14/180) * robot_config.normalization.obs_scales.dof_pos)
-                print("obs[0, 17:29] = ",dq*3.14/180 * robot_config.normalization.obs_scales.dof_vel)
-                print("obs[0, 29:41] = ",action)
-                print("obs[0, 41:44] = ",gvec)
-                print("obs[0, 44:47] = ",eu_ang)
+                print('obs[0, 0] ', obs[0, 0] )
+                print('obs[0, 1] ', obs[0, 1] )
+                print('obs[0, 2] ', obs[0, 2] )
+                print('obs[0, 3] ', obs[0, 3] )
+                print('obs[0, 4] ', obs[0, 4] )
+                print('obs[0, 5:17]', obs[0, 5:17])
+                print('obs[0, 17:29]', obs[0, 17:29])
+                print('obs[0, 29:41]', obs[0, 29:41])
+                print('obs[0, 41:44]', obs[0, 41:44])
+                print('obs[0, 44:47]', obs[0, 44:47])
 
                 hist_obs.append(obs)
                 hist_obs.popleft()
 
-                policy_input = np.zeros([1, robot_config.env.num_observations], dtype=np.float32)
                 for i in range(robot_config.env.frame_stack):
                     policy_input[0, i * robot_config.env.num_single_obs:(i + 1) * robot_config.env.num_single_obs] = hist_obs[i][0, :]
-                policy_input = torch.tensor(policy_input)
+                # policy_input = torch.tensor(policy_input)
+                policy_input_tensor = torch.from_numpy(policy_input)
 
-                action = policy(policy_input)[0].detach().numpy()
+                action = policy(policy_input_tensor)[0].detach().numpy()
                 action = np.clip(action, -robot_config.normalization.clip_actions, robot_config.normalization.clip_actions)
-                target_q = action * robot_config.action_scale + default_angle*3.14/180
+                target_q = action * robot_config.action_scale + default_angle_rad
                 # 并联脚
                 target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
-                motor.set_position(target_q * 180 / 3.14)  # 设置电机位置时转换回角度
+                motor.set_position(np.rad2deg(target_q))  # 设置电机位置时转换回角度
                 # motor.set_position(target_q)  # 设置电机位置时转换回角度
 
                 # print('target_q = :(rad)', target_q)  # rad
-                print('target_q = :(deg)', target_q * 180 / 3.14)  # deg
+                print('target_q = :(deg)', np.rad2deg(target_q))  # deg
                 # motor.set_position(target_q)
                 end_time = time.time()
                 execution_time = end_time - start_time
