@@ -7,7 +7,8 @@ from motor.motors import MOTOR
 # 常量定义
 ANKLE_MOTOR5_OFFSET = math.pi - 0.046181  # 请替换为实际值
 ANKLE_MOTOR6_OFFSET = math.pi - 0.046181  # 请替换为实际值
-
+kps = np.array([180, 180, 180, 180, 30, 30, 180, 180, 180, 180, 30, 30], dtype=np.double)*0.4
+kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)*0.5
 class AnkleJointModule:
     # 对于左腿而言
     @staticmethod
@@ -168,7 +169,7 @@ if __name__ == "__main__":
     # 设置电机为位置控制模式
     motor.set_position_mode()
     # 设置PD参数
-    motor.set_pd_imm()
+    motor.set_pd_imm_all(kps,kds)
 
     # 假设给定的pitch和roll角度（单位：rad）
     pitch = 0.4

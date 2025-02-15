@@ -30,7 +30,7 @@ def set_position(target_position):
         current_positions = []
         for i in range(len(server_ip_list)):
             position, _, _ = fi_fsa_v2.fast_get_pvc(server_ip_list[i])
-            current_positions.append(position)
+            current_positions.append(position)     
 
         # 检查 target_position 的长度是否足够
         if len(target_position) < motors_num:
