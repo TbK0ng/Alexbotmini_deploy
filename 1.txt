@@ -1,0 +1,953 @@
+roll_x, pitch_y, yaw_z is:(deg) -1.2634745443258404 -1.892903896402934 8.263786630487022
+obs[0, 0]  -0.47139674
+obs[0, 1]  0.8819213
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-0.33754158 -0.22811866 -0.05188391  1.1299671   0.5100726   0.7605154
+  0.72924435  0.7503482   0.35182998  0.1398015   0.12350044  0.5266487 ]
+obs[0, 41:44] [-0.00380252 -0.00115838  0.00086121]
+obs[0, 44:47] [-0.02204061 -0.03302066  0.14415717]
+target_q = :(deg) [-11.67648807  -1.68091895  -1.54703304  21.13525021  10.
+  10.          17.98265553   8.59742207   2.57459306 -16.89981319
+  -4.11401681  10.        ]
+exec_time: 0.12450361251831055 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12197422981262207
+读取数据用时: 0.000067 秒
+解析数据用时: 0.000872 秒
+提取并转换四元数数据用时: 0.000017 秒
+提取并转换陀螺仪数据用时: 0.000023 秒
+整个函数用时: 0.001005 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.4850258873729083 -2.402436216175051 6.8913278933384445
+obs[0, 0]  -0.38268343
+obs[0, 1]  0.9238795
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-0.11704095 -0.11735028 -0.10800328  0.21888176  0.61974245  0.85587615
+  0.5572945   0.6002133   0.1797405   0.07680753  0.2712928   0.22578296]
+obs[0, 41:44] [ 0.00094075  0.00156413 -0.00605717]
+obs[0, 44:47] [-0.02590545 -0.04190917  0.12021539]
+target_q = :(deg) [ -8.86400891  -1.23159677  -2.49468391   7.55926526  10.
+  10.          15.71632107   5.73634291   0.09616976 -19.46817648
+  -2.56969481   6.04995751]
+exec_time: 0.12479496002197266 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12244176864624023
+读取数据用时: 0.000066 秒
+解析数据用时: 0.001094 秒
+提取并转换四元数数据用时: 0.000017 秒
+提取并转换陀螺仪数据用时: 0.000021 秒
+整个函数用时: 0.001221 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.3299274662024165 -1.7455157363811076 3.9213279744804694
+obs[0, 0]  -0.29028466
+obs[0, 1]  0.95694035
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [ 0.07930714 -0.08598167 -0.17416179 -0.7289008   0.7167007   0.9922254
+  0.3990745   0.40047228  0.00671392 -0.10249805  0.37910682 -0.13613865]
+obs[0, 41:44] [ 7.4124400e-05 -2.9449356e-03 -7.2120903e-03]
+obs[0, 44:47] [-0.02319985 -0.03044955  0.06840539]
+target_q = :(deg) [ -8.12070803  -1.59405025  -2.11339969  -1.24479906  10.
+  10.          14.7612856    2.01231097  -1.69482073 -21.86435327
+  -3.10620873   1.81913087]
+exec_time: 0.12635469436645508 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12243890762329102
+读取数据用时: 0.000079 秒
+解析数据用时: 0.001698 秒
+提取并转换四元数数据用时: 0.000024 秒
+提取并转换陀螺仪数据用时: 0.000030 秒
+整个函数用时: 0.001871 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.488081878651169 -1.7276996497375134 1.8324721863643272
+obs[0, 0]  -0.19509032
+obs[0, 1]  0.98078525
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [ 0.13119933 -0.1112857  -0.14754313 -1.3435404   0.9780842   1.1580986
+  0.33240044  0.14048581 -0.11832081 -0.26978275  0.34165108 -0.43150607]
+obs[0, 41:44] [ 0.00042108  0.00113114 -0.00410282]
+obs[0, 44:47] [-0.0434032  -0.03013876  0.03196646]
+target_q = :(deg) [-12.25198445  -8.15749471  -1.85687102  -2.56070843  10.
+  10.          16.12344815  -0.90098391  -2.38032199 -29.08897946
+  -7.9926537   -1.80068113]
+exec_time: 0.1302628517150879 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12260937690734863
+读取数据用时: 0.000069 秒
+解析数据用时: 0.001312 秒
+提取并转换四元数数据用时: 0.000026 秒
+提取并转换陀螺仪数据用时: 0.000034 秒
+整个函数用时: 0.001483 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.118555577468465 -1.3143304473919164 1.3883718172334105
+obs[0, 0]  -0.09801714
+obs[0, 1]  0.9951847
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.5721817e-01 -5.6950057e-01 -1.2963405e-01 -1.4354082e+00
+  1.5294888e+00  1.3173298e+00  4.2749733e-01 -6.2900543e-02
+ -1.6617782e-01 -7.7415681e-01  5.1286817e-04 -6.8421662e-01]
+obs[0, 41:44] [ 0.00065687 -0.0021862   0.00079503]
+obs[0, 44:47] [-0.03695703 -0.02292776  0.02421938]
+target_q = :(deg) [-20.51820104 -18.          -0.85024841   4.61408684  10.
+  10.          20.75840257  -2.83816473  -2.10324043 -42.41580551
+ -10.           1.00318452]
+exec_time: 0.13490056991577148 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12239646911621094
+读取数据用时: 0.000052 秒
+解析数据用时: 0.000775 秒
+提取并转换四元数数据用时: 0.000016 秒
+提取并转换陀螺仪数据用时: 0.000019 秒
+整个函数用时: 0.000880 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.781113904894805 -0.9508067530120541 1.76724523362515
+obs[0, 0]  -2.9391522e-15
+obs[0, 1]  1.0
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-0.73430896 -1.4206197  -0.05935854 -0.93451303  1.8079841   1.1794115
+  0.7510782  -0.19814128 -0.14683388 -1.7045448  -0.5703104  -0.48846987]
+obs[0, 41:44] [ 0.00092585 -0.00064943  0.00061064]
+obs[0, 44:47] [-0.04851499 -0.0165863   0.03082861]
+target_q = :(deg) [-25.90944523 -18.          -0.52941858  11.66861357  10.
+  10.          25.33163001  -3.50821312  -1.54640392 -52.63068468
+ -10.           7.70641552]
+exec_time: 0.13138747215270996 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12158417701721191
+读取数据用时: 0.000085 秒
+解析数据用时: 0.000917 秒
+提取并转换四元数数据用时: 0.000020 秒
+提取并转换陀螺仪数据用时: 0.000035 秒
+整个函数用时: 0.001088 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.5387383180766756 -0.33461685824438214 1.8956394731875412
+obs[0, 0]  0.09801714
+obs[0, 1]  0.9951847
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.1106888  -1.9397048  -0.03696039 -0.44201416  1.7376671   1.1272984
+  1.0703497  -0.24491948 -0.10795936 -2.4176779  -0.8309302  -0.02049606]
+obs[0, 41:44] [0.0010774  0.00039591 0.00043578]
+obs[0, 44:47] [-0.04428688 -0.00583721  0.03306838]
+target_q = :(deg) [-28.40060646 -18.          -1.70150055  15.07725277  10.
+  10.          28.2801168   -1.25945359  -1.74853184 -59.5113831
+ -10.          10.        ]
+exec_time: 0.12485241889953613 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12170171737670898
+读取数据用时: 0.000056 秒
+解析数据用时: 0.000663 秒
+提取并转换四元数数据用时: 0.000016 秒
+提取并转换陀螺仪数据用时: 0.000019 秒
+整个函数用时: 0.000777 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.5127450515315206 -0.11356128562158253 2.0375804319820605
+obs[0, 0]  0.19509032
+obs[0, 1]  0.98078525
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.2846047  -2.220592   -0.11878715 -0.20404625  1.5622591   1.0639135
+  1.2761929  -0.08792645 -0.12207055 -2.8980412  -0.9103475   0.2123546 ]
+obs[0, 41:44] [ 0.00057548 -0.00010995  0.00015639]
+obs[0, 44:47] [-0.04383344 -0.00198101  0.03554446]
+target_q = :(deg) [-29.2270696  -18.          -2.30349923  18.57814254  10.
+  10.          28.69180816   2.92399545  -2.39055362 -60.
+ -10.          10.        ]
+exec_time: 0.12411832809448242 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12201213836669922
+读取数据用时: 0.000063 秒
+解析数据用时: 0.000728 秒
+提取并转换四元数数据用时: 0.000017 秒
+提取并转换陀螺仪数据用时: 0.000021 秒
+整个函数用时: 0.000849 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.427779695230765 0.23875503956063718 2.200660313424719
+obs[0, 0]  0.29028466
+obs[0, 1]  0.95694035
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.3423027  -2.1296024  -0.16081458  0.04036196  1.1778516   0.98252475
+  1.3049344   0.20413339 -0.16689213 -2.9922895  -0.79261047  0.33706665]
+obs[0, 41:44] [0.00059918 0.00044063 0.00024354]
+obs[0, 44:47] [-0.04235127  0.00416495  0.0383893 ]
+target_q = :(deg) [-29.57685212 -18.          -3.06466831  20.68456487  10.
+  10.          27.75403514   6.4161542   -3.27109115 -58.39632398
+ -10.          10.        ]
+exec_time: 0.12454581260681152 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12166690826416016
+读取数据用时: 0.000061 秒
+解析数据用时: 0.001020 秒
+提取并转换四元数数据用时: 0.000024 秒
+提取并转换陀螺仪数据用时: 0.000027 秒
+整个函数用时: 0.001156 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.1633337904540757 0.37750462943102214 2.348219790349094
+obs[0, 0]  0.38268343
+obs[0, 1]  0.9238795
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.3667221  -1.907242   -0.21395421  0.18741798  0.92638427  0.91094136
+  1.2394655   0.44793206 -0.22836524 -2.8201954  -0.56652033  0.29597077]
+obs[0, 41:44] [0.00043373 0.00079026 0.00035332]
+obs[0, 44:47] [-0.03773816  0.00658536  0.04096339]
+target_q = :(deg) [-30.95021363 -18.          -3.39810065  19.85475836  10.
+  10.          25.67541392   8.75609078  -4.89665867 -54.06881174
+ -10.           9.81289101]
+exec_time: 0.1667482852935791 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12181282043457031
+读取数据用时: 0.000054 秒
+解析数据用时: 0.000949 秒
+提取并转换四元数数据用时: 0.000022 秒
+提取并转换陀螺仪数据用时: 0.000028 秒
+整个函数用时: 0.001073 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.047084587288195 0.217166906223971 2.53524642355019
+obs[0, 0]  0.47139674
+obs[0, 1]  0.8819213
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.4626008  -1.7000965  -0.23723218  0.12948656  1.0366764   0.88044816
+  1.0943503   0.61129045 -0.34185126 -2.518078   -0.520445    0.12656367]
+obs[0, 41:44] [-1.2421893e-03  1.2538995e-05  3.1390638e-04]
+obs[0, 44:47] [-0.03571025  0.00378836  0.04422596]
+target_q = :(deg) [-32.58634446 -18.          -2.53335089  18.74803239  10.
+  10.          24.02690934   9.59728493  -6.09941912 -51.4596385
+ -10.           7.74838416]
+exec_time: 0.12465381622314453 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12194180488586426
+读取数据用时: 0.000054 秒
+解析数据用时: 0.000722 秒
+提取并转换四元数数据用时: 0.000016 秒
+提取并转换陀螺仪数据用时: 0.000020 秒
+整个函数用时: 0.000834 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.8717894141385116 -0.07890944699437852 2.5568217527452224
+obs[0, 0]  0.55557024
+obs[0, 1]  0.8314696
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.5768243  -1.5104938  -0.17686126  0.05222251  1.2025528   0.8702448
+  0.979263    0.6700169  -0.42581978 -2.3359234  -0.4058814  -0.0175661 ]
+obs[0, 41:44] [-9.3509596e-05  8.4474310e-04 -6.5455853e-05]
+obs[0, 44:47] [-0.03265233 -0.00137653  0.04460233]
+target_q = :(deg) [-33.10125535 -18.          -2.06785578  18.37310965  10.
+  10.          22.76653283   9.50251776  -6.36957103 -51.53078858
+ -10.           6.6842028 ]
+exec_time: 0.12490177154541016 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12186908721923828
+读取数据用时: 0.000074 秒
+解析数据用时: 0.001554 秒
+提取并转换四元数数据用时: 0.000030 秒
+提取并转换陀螺仪数据用时: 0.000034 秒
+整个函数用时: 0.001739 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.803732682630863 -0.3620290167938051 2.5189381214419506
+obs[0, 0]  0.6343933
+obs[0, 1]  0.77301043
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.6127719  -1.5111067  -0.14436357  0.02604797  1.205904    0.89577496
+  0.8912721   0.6634009  -0.44467995 -2.3408906  -0.42154148 -0.09185997]
+obs[0, 41:44] [-1.4564411e-03 -4.2015774e-04  3.9399409e-05]
+obs[0, 44:47] [-0.03146511 -0.0063154   0.04394148]
+target_q = :(deg) [-33.73733208 -18.          -1.55184641  18.14089207  10.
+  10.          21.64585929   9.2161894   -6.16743158 -52.62015594
+ -10.           6.07722619]
+exec_time: 0.1258552074432373 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12172079086303711
+读取数据用时: 0.000091 秒
+解析数据用时: 0.001601 秒
+提取并转换四元数数据用时: 0.000021 秒
+提取并转换陀螺仪数据用时: 0.000027 秒
+整个函数用时: 0.001778 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.9143046006032294 -0.8674407223941426 2.435927293400509
+obs[0, 0]  0.70710677
+obs[0, 1]  0.70710677
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.6571784  -1.6510044  -0.10833932  0.00983612  1.1833034   0.940574
+  0.81303436  0.6434114  -0.43056795 -2.4169428  -0.52882856 -0.13423494]
+obs[0, 41:44] [-1.0681384e-03  5.3676358e-05 -1.3406838e-04]
+obs[0, 44:47] [-0.03339398 -0.01513202  0.0424934 ]
+target_q = :(deg) [-33.92317982 -18.          -0.3837902   18.74158726  10.
+  10.          21.16416191   8.72157783  -5.69878285 -54.20616685
+ -10.           6.52637185]
+exec_time: 0.12691092491149902 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.1217656135559082
+读取数据用时: 0.000082 秒
+解析数据用时: 0.001694 秒
+提取并转换四元数数据用时: 0.000022 秒
+提取并转换陀螺仪数据用时: 0.000029 秒
+整个函数用时: 0.001868 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.84149997925879 -1.3272853414874626 2.349273722965017
+obs[0, 0]  0.77301043
+obs[0, 1]  0.6343933
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.670153   -1.6367496  -0.02679361  0.05177256  1.1362076   0.9847721
+  0.77940553  0.608881   -0.3978501  -2.5276673  -0.5703404  -0.10287865]
+obs[0, 41:44] [-1.2409331e-03 -1.7852744e-05 -3.0073058e-04]
+obs[0, 44:47] [-0.03212395 -0.02315376  0.04098177]
+target_q = :(deg) [-33.51848258 -18.           0.84081518  20.10005094  10.
+  10.          21.0142939    8.14778901  -5.05486335 -57.52431714
+ -10.           7.48956726]
+exec_time: 0.1260676383972168 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12167572975158691
+读取数据用时: 0.000079 秒
+解析数据用时: 0.001560 秒
+提取并转换四元数数据用时: 0.000020 秒
+提取并转换陀螺仪数据用时: 0.000025 秒
+整个函数用时: 0.001720 秒
+roll_x, pitch_y, yaw_z is:(deg) -1.9024696499067417 -1.693815023105436 2.2335555465172456
+obs[0, 0]  0.8314696
+obs[0, 1]  0.55557024
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.6418998  -1.6357229   0.05869997  0.14661121  0.94865054  1.026226
+  0.7689428   0.568823   -0.35289603 -2.7593179  -0.647308   -0.03563493]
+obs[0, 41:44] [-0.00043788 -0.00017384 -0.00039883]
+obs[0, 44:47] [-0.03318753 -0.02954766  0.03896314]
+target_q = :(deg) [-32.67410898 -18.           1.77523799  21.48899979  10.
+  10.          21.25117681   7.67043733  -4.39964757 -60.
+ -10.           8.49780126]
+exec_time: 0.12676596641540527 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12210893630981445
+读取数据用时: 0.000074 秒
+解析数据用时: 0.001221 秒
+提取并转换四元数数据用时: 0.000021 秒
+提取并转换陀螺仪数据用时: 0.000029 秒
+整个函数用时: 0.001374 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.1110013289382157 -1.7846536145573333 2.07716984835113
+obs[0, 0]  0.8819213
+obs[0, 1]  0.47139674
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.5829514  -1.5589095   0.12393499  0.24357814  0.74376327  1.063792
+  0.7854803   0.53549755 -0.30715334 -2.9855     -0.72729117  0.03475308]
+obs[0, 41:44] [-0.00024875 -0.00069806 -0.00042684]
+obs[0, 44:47] [-0.03682525 -0.03113229  0.03623508]
+target_q = :(deg) [-30.95926704 -18.           2.84856369  23.22874246  10.
+  10.          21.74056072   7.41316545  -3.67150629 -60.
+ -10.           9.63088386]
+exec_time: 0.1463463306427002 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12197613716125488
+读取数据用时: 0.000065 秒
+解析数据用时: 0.000879 秒
+提取并转换四元数数据用时: 0.000016 秒
+提取并转换陀螺仪数据用时: 0.000023 秒
+整个函数用时: 0.001009 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.156368778559376 -1.703619868130201 1.8369890455058657
+obs[0, 0]  0.9238795
+obs[0, 1]  0.38268343
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.4632329  -1.3358411   0.19886726  0.3650351   0.50598514  1.0862433
+  0.81964576  0.5175366  -0.2563195  -3.1753726  -0.83616585  0.11385717]
+obs[0, 41:44] [ 0.00032186  0.00036074 -0.00059859]
+obs[0, 44:47] [-0.03761666 -0.0297187   0.03204525]
+target_q = :(deg) [-29.42441425 -17.01828887   3.62629129  24.53369023  10.
+  10.          22.5224065    6.63227932  -2.4946679  -60.
+ -10.          10.        ]
+exec_time: 0.12673282623291016 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12187552452087402
+读取数据用时: 0.000059 秒
+解析数据用时: 0.000957 秒
+提取并转换四元数数据用时: 0.000020 秒
+提取并转换陀螺仪数据用时: 0.000025 秒
+整个函数用时: 0.001084 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.1877960387479463 -1.6476453519979717 1.5967626401770363
+obs[0, 0]  0.95694035
+obs[0, 1]  0.29028466
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.3560799  -1.1881007   0.2531629   0.45613763  0.34241742  1.1000632
+  0.8742289   0.46302044 -0.17416067 -3.3202012  -0.9020715   0.16511714]
+obs[0, 41:44] [ 0.00012957 -0.00014985 -0.00068332]
+obs[0, 44:47] [-0.03816489 -0.02874226  0.02785464]
+target_q = :(deg) [-28.206834   -16.19151155   4.39637847  25.58413533  10.
+  10.          22.84275347   5.70100607  -1.38028966 -60.
+ -10.          10.        ]
+exec_time: 0.12483382225036621 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.1219947338104248
+读取数据用时: 0.000051 秒
+解析数据用时: 0.000678 秒
+提取并转换四元数数据用时: 0.000015 秒
+提取并转换陀螺仪数据用时: 0.000019 秒
+整个函数用时: 0.000784 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.2281616541074176 -1.3174631903285865 1.2779588315237695
+obs[0, 0]  0.98078525
+obs[0, 1]  0.19509032
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.2710768  -1.1303807   0.30692512  0.52947253  0.28768682  1.107327
+  0.89659333  0.3980053  -0.0963624  -3.3895416  -0.99752176  0.17891634]
+obs[0, 41:44] [ 1.1710336e-03  9.0756628e-05 -8.9149992e-04]
+obs[0, 44:47] [-0.03886904 -0.02298241  0.02229328]
+target_q = :(deg) [-26.99183897 -14.70531361   5.46866097  26.20959625  10.
+  10.          23.09462609   5.05787717  -0.85383656 -60.
+ -10.          10.        ]
+exec_time: 0.12418723106384277 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+recv timeout 192.168.137.103
+recv timeout 192.168.137.104
+recv timeout 192.168.137.105
+recv timeout 192.168.137.106
+recv timeout 192.168.137.107
+recv timeout 192.168.137.108
+recv timeout 192.168.137.109
+recv timeout 192.168.137.110
+recv timeout 192.168.137.111
+recv timeout 192.168.137.112
+Get PVC Time: 0.12252187728881836
+读取数据用时: 0.000089 秒
+解析数据用时: 0.002151 秒
+提取并转换四元数数据用时: 0.000020 秒
+提取并转换陀螺仪数据用时: 0.000030 秒
+整个函数用时: 0.002345 秒
+roll_x, pitch_y, yaw_z is:(deg) -2.225542792067963 -0.8741402861797871 0.8968160274967416
+obs[0, 0]  0.9951847
+obs[0, 1]  0.09801714
+obs[0, 2]  0.0
+obs[0, 3]  0.0
+obs[0, 4]  0.0
+obs[0, 5:17] [ 0.17453292  0.          0.         -0.31415927 -0.13962634 -0.13962634
+ -0.17453292  0.          0.          0.31415927  0.13962634 -0.13962634]
+obs[0, 17:29] [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+obs[0, 29:41] [-1.1862541  -1.0266246   0.38178456  0.57313794  0.31387147  1.1175748
+  0.91417736  0.35310644 -0.05960904 -3.4556732  -1.1290193   0.18559644]
+obs[0, 41:44] [ 8.5818849e-04 -5.6131477e-05 -8.5911993e-04]
+obs[0, 44:47] [-0.03882336 -0.01524889  0.01564446]
+target_q = :(deg) [-26.64607601 -14.06815344   5.93060331  26.04708385  10.
+  10.          23.51674544   4.43382584  -0.49480831 -60.
+ -10.          10.        ]
+exec_time: 0.12890911102294922 
+recv timeout 192.168.137.101
+recv timeout 192.168.137.102
+^CTraceback (most recent call last):
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 238, in <module>
+    robot.run_alexbotmini(policy)
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 161, in run_alexbotmini
+    q, dq, quat, omega = self.get_obs()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 113, in get_obs
+    motor.get_pvc()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/sim2real/module/motor/motors.py", line 100, in get_pvc
+    position, velocity, current = fast_get_pvc_group(self.server_ip_list)
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/sim2real/module/motor/motors.py", line 31, in fast_get_pvc_group
+    data, address = fsa_socket.recvfrom(1024)
+KeyboardInterrupt
+
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ ^C
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ /home/alexhuge/anaconda3/envs/sim2real/bin/python /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v1
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:19.697.945]  Info:    FSA start listening for broadcast...
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v2
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:19.699.888]  Info:    FSA start listening for broadcast...
+Motor Num: 12
+[2025.02.13 22:33:19.844.520]  Info:    FSA start listening for broadcast...
+
+
+[2025.02.13 22:33:19.854.977]  Error:   Do not have any server! [Timeout] 
+
+Traceback (most recent call last):
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 237, in <module>
+    robot = robot()  # 创建robot类实例
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 94, in __init__
+    self.init()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 98, in init
+    motor.get_motors_ip()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/sim2real/module/motor/motors.py", line 80, in get_motors_ip
+    raise TypeError("Can not find motor, please check the wire or reboot motor.")
+TypeError: Can not find motor, please check the wire or reboot motor.
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ /home/alexhuge/anaconda3/envs/sim2real/bin/python /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v1
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:25.040.289]  Info:    FSA start listening for broadcast...
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v2
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:25.041.953]  Info:    FSA start listening for broadcast...
+Motor Num: 12
+[2025.02.13 22:33:25.193.995]  Info:    FSA start listening for broadcast...
+
+
+[2025.02.13 22:33:25.204.379]  Error:   Do not have any server! [Timeout] 
+
+Traceback (most recent call last):
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 237, in <module>
+    robot = robot()  # 创建robot类实例
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 94, in __init__
+    self.init()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 98, in init
+    motor.get_motors_ip()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/sim2real/module/motor/motors.py", line 80, in get_motors_ip
+    raise TypeError("Can not find motor, please check the wire or reboot motor.")
+TypeError: Can not find motor, please check the wire or reboot motor.
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ /home/alexhuge/anaconda3/envs/sim2real/bin/python /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v1
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:27.783.613]  Info:    FSA start listening for broadcast...
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v2
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:33:27.785.364]  Info:    FSA start listening for broadcast...
+Motor Num: 12
+[2025.02.13 22:33:27.930.475]  Info:    FSA start listening for broadcast...
+
+
+[2025.02.13 22:33:27.933.092]  Info:    Received from ('192.168.137.104', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"3481D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:81:37","ip_address":"192.168.137.104","IP":"192.168.137.104"}
+[2025.02.13 22:33:27.934.409]  Info:    Received from ('192.168.137.102', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA","serial_number":"6891D9061590","driver_version":"0.2.10.11","firmware_version":"0.3.12.1","connect_mode":"ETH","mac_address":"90:15:06:D9:91:6B","ip_address":"192.168.137.102","IP":"192.168.137.102"}
+[2025.02.13 22:33:27.934.449]  Info:    Received from ('192.168.137.107', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"808BD9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:8B:83","ip_address":"192.168.137.107","IP":"192.168.137.107"}
+[2025.02.13 22:33:27.934.465]  Info:    Received from ('192.168.137.108', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"5482D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:82:57","ip_address":"192.168.137.108","IP":"192.168.137.108"}
+[2025.02.13 22:33:27.934.477]  Info:    Received from ('192.168.137.109', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"C891D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:91:CB","ip_address":"192.168.137.109","IP":"192.168.137.109"}
+[2025.02.13 22:33:27.934.488]  Info:    Received from ('192.168.137.101', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"7881D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:81:7B","ip_address":"192.168.137.101","IP":"192.168.137.101"}
+[2025.02.13 22:33:27.934.498]  Info:    Received from ('192.168.137.103', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"BC83D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:83:BF","ip_address":"192.168.137.103","IP":"192.168.137.103"}
+[2025.02.13 22:33:27.934.762]  Info:    Received from ('192.168.137.110', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"E092D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:92:E3","ip_address":"192.168.137.110","IP":"192.168.137.110"}
+[2025.02.13 22:33:27.934.772]  Info:    Received from ('192.168.137.105', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"488AD9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:8A:4B","ip_address":"192.168.137.105","IP":"192.168.137.105"}
+[2025.02.13 22:33:27.934.783]  Info:    Received from ('192.168.137.111', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"8484D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:84:87","ip_address":"192.168.137.111","IP":"192.168.137.111"}
+[2025.02.13 22:33:27.934.793]  Info:    Received from ('192.168.137.112', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"CC92D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:92:CF","ip_address":"192.168.137.112","IP":"192.168.137.112"}
+[2025.02.13 22:33:27.935.036]  Info:    Received from ('192.168.137.106', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"EC83D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:83:EF","ip_address":"192.168.137.106","IP":"192.168.137.106"}
+
+
+found servers
+['192.168.137.104', '192.168.137.102', '192.168.137.107', '192.168.137.108', '192.168.137.109', '192.168.137.101', '192.168.137.103', '192.168.137.110', '192.168.137.105', '192.168.137.111', '192.168.137.112', '192.168.137.106']
+lookup Finished! 
+
+^CTraceback (most recent call last):
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 237, in <module>
+    robot = robot()  # 创建robot类实例
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 94, in __init__
+    self.init()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 99, in init
+    motor.set_position_mode()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/sim2real/module/motor/motors.py", line 117, in set_position_mode
+    time.sleep(0.1)
+KeyboardInterrupt
+
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ ^C
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ /home/alexhuge/anaconda3/envs/sim2real/bin/python /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v1
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:34:45.640.110]  Info:    FSA start listening for broadcast...
+current_workspace_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy
+config_yaml_path = 
+ /home/alexhuge/Documents/GitHub/Alexbotmini_deploy/config.yaml
+#################################
+config.yaml is: 
+null
+...
+
+#################################
+/home/alexhuge/anaconda3/envs/sim2real/lib/python3.10/site-packages/fi_fsa/v2
+Log Already Existed ./log/2025/02/
+[2025.02.13 22:34:45.661.482]  Info:    FSA start listening for broadcast...
+Motor Num: 12
+[2025.02.13 22:34:45.806.632]  Info:    FSA start listening for broadcast...
+
+
+[2025.02.13 22:34:45.808.364]  Info:    Received from ('192.168.137.101', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"7881D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:81:7B","ip_address":"192.168.137.101","IP":"192.168.137.101"}
+[2025.02.13 22:34:45.808.405]  Info:    Received from ('192.168.137.108', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"5482D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:82:57","ip_address":"192.168.137.108","IP":"192.168.137.108"}
+[2025.02.13 22:34:45.808.421]  Info:    Received from ('192.168.137.107', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"808BD9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:8B:83","ip_address":"192.168.137.107","IP":"192.168.137.107"}
+[2025.02.13 22:34:45.808.434]  Info:    Received from ('192.168.137.104', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"3481D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:81:37","ip_address":"192.168.137.104","IP":"192.168.137.104"}
+[2025.02.13 22:34:45.808.462]  Info:    Received from ('192.168.137.103', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"BC83D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:83:BF","ip_address":"192.168.137.103","IP":"192.168.137.103"}
+[2025.02.13 22:34:45.808.472]  Info:    Received from ('192.168.137.109', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"C891D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:91:CB","ip_address":"192.168.137.109","IP":"192.168.137.109"}
+[2025.02.13 22:34:45.808.482]  Info:    Received from ('192.168.137.102', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA","serial_number":"6891D9061590","driver_version":"0.2.10.11","firmware_version":"0.3.12.1","connect_mode":"ETH","mac_address":"90:15:06:D9:91:6B","ip_address":"192.168.137.102","IP":"192.168.137.102"}
+[2025.02.13 22:34:45.808.492]  Info:    Received from ('192.168.137.110', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"E092D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:92:E3","ip_address":"192.168.137.110","IP":"192.168.137.110"}
+[2025.02.13 22:34:45.808.677]  Info:    Received from ('192.168.137.111', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"8484D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:84:87","ip_address":"192.168.137.111","IP":"192.168.137.111"}
+[2025.02.13 22:34:45.808.687]  Info:    Received from ('192.168.137.105', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"488AD9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:8A:4B","ip_address":"192.168.137.105","IP":"192.168.137.105"}
+[2025.02.13 22:34:45.808.696]  Info:    Received from ('192.168.137.112', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"CC92D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:92:CF","ip_address":"192.168.137.112","IP":"192.168.137.112"}
+[2025.02.13 22:34:45.808.705]  Info:    Received from ('192.168.137.106', 2334):{"status":"OK","reqTarget":"/broadcast","property":"reply","type":"Actuator","model":"","name":"FSA-0","serial_number":"EC83D9061590","driver_version":"0.2.9.1","firmware_version":"0.3.9.9","connect_mode":"ETH","mac_address":"90:15:06:D9:83:EF","ip_address":"192.168.137.106","IP":"192.168.137.106"}
+
+
+found servers
+['192.168.137.101', '192.168.137.108', '192.168.137.107', '192.168.137.104', '192.168.137.103', '192.168.137.109', '192.168.137.102', '192.168.137.110', '192.168.137.111', '192.168.137.105', '192.168.137.112', '192.168.137.106']
+lookup Finished! 
+
+Get PVC Time: 0.0016074180603027344
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+pd has been imm set
+^CTraceback (most recent call last):
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 237, in <module>
+    robot = robot()  # 创建robot类实例
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 94, in __init__
+    self.init()
+  File "/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/alexbotmini_sim2real.py", line 103, in init
+    time.sleep(1)
+KeyboardInterrupt
+
+(sim2real) (base) alexhuge@alexbotmini4090d:~/Documents/GitHub/Alexbotmini_deploy$ 

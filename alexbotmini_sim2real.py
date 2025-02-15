@@ -20,17 +20,17 @@ from sim2real.module.imu.imu import IMU
 # init robot & add robot config
 class robot_config:
     #     PD Drive parameters:
-    #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
-    #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
-    kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)
-    kds = np.array([10, 8, 8, 10, 2.5, 2.5, 10, 8, 8, 10, 2.5, 2.5,], dtype=np.double)
+    # stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
+    # damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
+    kps = np.array([180, 180, 180, 180, 30, 30, 180, 180, 180, 180, 30, 30], dtype=np.double)*0.3
+    kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)*0.3
 
     # target_q_limit = np.array([3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314, 3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314], dtype=np.double)
-    target_q_limit = np.array([60, 18, 18, 60, 18, 18, 60, 18, 18, 60, 18, 18,], dtype=np.double)
+    target_q_limit = np.array([60, 18, 18, 60, 10, 10, 60, 18, 18 , 60, 10, 10,], dtype=np.double)
     target_q_limit = np.deg2rad(target_q_limit)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
     default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
-    # -10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8
+    # -10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8 
     num_actions=12
     action_scale = 0.25
     class normalization:
@@ -83,7 +83,7 @@ action = np.zeros((robot_config.num_actions), dtype=np.double)
 class cmd:
     # TODO: changed into joystick
     # vx = 0.0
-    vx = 0.4
+    vx = 0.0
     vy = 0.0
     dyaw = 0.0
 
@@ -105,18 +105,19 @@ class robot:
         # 设置电机初始条件
         motor.set_position(robot_config.default_joint_angles)
         time.sleep(1)
-        # motor.get_pvc()
+        # motor.get_pvc() 
+
         # imu init
         # imu.cmd_read(port, baudrate)
 
     def get_obs(self):
         motor.get_pvc()
-        quat, gvec = imu.cmd_read()
+        quat, omega = imu.cmd_read()
         q = motor.q
         dq = motor.dq
         # print("quat value:", quat)
         # print("gvec value:", gvec)
-        return (q, dq, quat, gvec)
+        return (q, dq, quat, omega)
 
     def run_alexbotmini(self, policy):
         """

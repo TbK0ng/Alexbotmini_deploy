@@ -232,7 +232,8 @@ class robot:
                 execution_time = end_time - start_time
                 if execution_time < dt:
                     time.sleep(dt - execution_time)
-                print(f"exec_time: {execution_time} {pt} ")
+                print(f"exec_time: {execution_time} {pt} ") 
+                
 
             count_lowlevel += 1
 

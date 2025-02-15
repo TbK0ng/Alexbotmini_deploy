@@ -1,6 +1,7 @@
 #!/bin/sh
 
-network="wlp4s0" #更换为自己的网卡驱动名
+network="wlo1" #更换为自己的网卡驱动名
+
 
 sudo iptables -F
 # 配置基本规则，允许进及转发

@@ -1,7 +1,7 @@
 from fi_fsa import fi_fsa_v2
 import time
 
-server_ip_list = ["192.168.137.102"]
+server_ip_list = ["192.168.137.104"]
 
 
 def main():

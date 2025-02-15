@@ -64,8 +64,8 @@ if __name__ == "__main__":
     # target_position = [30,30,30,20,20,20,20,20,20,20,20,20]
     # target_position = [0,0,0,0,0,0,0,0,0,0,0,0]
     target_position = [0,0,0,0,0,
-                       0,0,0,0,0
-                       ,0,0,0,0,0,
+                       0,0,0,0,0,
+                       0,0,0,0,0,
                        0,0,0,0,0]
 
     set_position(target_position)
