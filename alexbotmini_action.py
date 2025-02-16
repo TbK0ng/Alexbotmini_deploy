@@ -22,10 +22,11 @@ class robot_config:
     #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
-    kps = np.array([180, 120, 120, 180, 45, 45, 180, 120, 120, 180, 45, 45], dtype=np.double)*0.2
-    kds = np.array([10, 8, 8, 10, 2.5, 2.5, 10, 8, 8, 10, 2.5, 2.5,], dtype=np.double)*0.5
+    kps = np.array([180, 180, 120, 180, 120, 120, 180, 180, 120, 180, 120, 120], dtype=np.double)*0.35
+    kds = np.array([ 10, 8, 8, 10, 5, 5, 10,8, 8, 10, 5, 5,], dtype=np.double)*0.8
 
-    target_q_limit = np.array([3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314, 3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314], dtype=np.double)
+    target_q_limit = np.array([90, 36, 36, 90, 45, 45, 90, 36, 36 , 90, 45, 45,], dtype=np.double)
+    target_q_limit = np.deg2rad(target_q_limit)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
     default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
     # -10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8
@@ -95,6 +96,7 @@ class robot:
         motor.get_motors_ip()
         motor.set_position_mode()
         motor.get_pvc()
+        motor.set_pd_imm_all(robot_config.kps,robot_config.kds)
         motor.set_position(robot_config.initial_position)
         time.sleep(1)
 
@@ -154,7 +156,7 @@ class robot:
         default_angle[11] = robot_config.default_joint_angles[11]
 
         pt = 0
-        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions_mujoco.pt', map_location=device)
+        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions_test2.pt', map_location=device)
         dt = 0.01
         while True:
 

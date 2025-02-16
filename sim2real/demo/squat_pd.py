@@ -4,7 +4,7 @@ from fi_fsa import fi_fsa_v2
 import time
 import numpy as np
 import time
-from ...module.motor.motors import MOTOR
+from module.motor.motors import MOTOR
 
 kps = np.array([225, 150, 150, 225, 60, 60,225, 150, 150, 225, 60, 60,], dtype=np.double)
 kds = np.array([12.5, 10, 10, 12.5, 4, 4, 12.5, 10, 10, 12.5, 4, 4,], dtype=np.double)

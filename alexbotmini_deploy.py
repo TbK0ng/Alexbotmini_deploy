@@ -22,11 +22,9 @@ class robot_config:
     #     PD Drive parameters:
     # stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     # damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
-    kps = np.array([180, 120, 180, 180, 45, 45, 180, 120, 180, 180, 45, 45], dtype=np.double)*0.7
-    kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)*1.0
-
-    # target_q_limit = np.array([3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314, 3.14/3, 3.14/10, 3.14/20, 3.14/3, 0.314, 0.314], dtype=np.double)
-    target_q_limit = np.array([60, 18, 18, 60, 0, 0, 60, 18, 18 , 60, 0, 0,], dtype=np.double)
+    kps = np.array([180, 180, 180, 180, 60, 60, 180, 180, 180, 180, 60, 60], dtype=np.double)
+    kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)
+    target_q_limit = np.array([60, 18, 18, 60, 45, 45, 60, 18, 18 , 60, 45, 45,], dtype=np.double)
     target_q_limit = np.deg2rad(target_q_limit)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
     default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
@@ -81,7 +79,7 @@ action = np.zeros((robot_config.num_actions), dtype=np.double)
 
 class cmd:
     # TODO: changed into joystick
-    # vx = 0.0
+    
     vx = 0.0
     vy = 0.0
     dyaw = 0.0
@@ -91,6 +89,8 @@ class cmd:
 class robot:
     def __init__(self):
         self.init()
+        self.sim_actions = []
+        self.real_actions = []  # 初始化存储实际动作的列表
 
     def init(self):
         # motor init， FFTAI_fsa position control is base on current(force) control
@@ -186,16 +186,16 @@ class robot:
                 obs[0, 44:47] = eu_ang
                 # Limit the data within the range from -cfg.normalization.clip_observations to cfg.normalization.clip_observations
                 obs = np.clip(obs, -robot_config.normalization.clip_observations, robot_config.normalization.clip_observations)
-                print('obs[0, 0] ', obs[0, 0] )
-                print('obs[0, 1] ', obs[0, 1] )
-                print('obs[0, 2] ', obs[0, 2] )
-                print('obs[0, 3] ', obs[0, 3] )
-                print('obs[0, 4] ', obs[0, 4] )
-                print('obs[0, 5:17]', obs[0, 5:17])
-                print('obs[0, 17:29]', obs[0, 17:29])
-                print('obs[0, 29:41]', obs[0, 29:41])
-                print('obs[0, 41:44]', obs[0, 41:44])
-                print('obs[0, 44:47]', obs[0, 44:47])
+                # print('obs[0, 0] ', obs[0, 0] )
+                # print('obs[0, 1] ', obs[0, 1] )
+                # print('obs[0, 2] ', obs[0, 2] )
+                # print('obs[0, 3] ', obs[0, 3] )
+                # print('obs[0, 4] ', obs[0, 4] )
+                # print('obs[0, 5:17]', obs[0, 5:17])
+                # print('obs[0, 17:29]', obs[0, 17:29])
+                # print('obs[0, 29:41]', obs[0, 29:41])
+                # print('obs[0, 41:44]', obs[0, 41:44])
+                # print('obs[0, 44:47]', obs[0, 44:47])
 
                 hist_obs.append(obs)
                 hist_obs.popleft()
@@ -208,14 +208,18 @@ class robot:
                 action = policy(policy_input_tensor)[0].detach().numpy()
                 action = np.clip(action, -robot_config.normalization.clip_actions, robot_config.normalization.clip_actions)
                 target_q = action * robot_config.action_scale + default_angle_rad
-                # 并联脚
+
+
+                ############# 并联脚 ##################
+
+
                 target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
                 motor.set_position(np.rad2deg(target_q))  # 设置电机位置时转换回角度
-                # motor.set_position(target_q)  # 设置电机位置时转换回角度
+                
 
                 # print('target_q = :(rad)', target_q)  # rad
                 print('target_q = :(deg)', np.rad2deg(target_q))  # deg
-                # motor.set_position(target_q)
+                
                 end_time = time.time()
                 execution_time = end_time - start_time
                 
@@ -233,6 +237,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/test03_20250215/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test05_20250213/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy)

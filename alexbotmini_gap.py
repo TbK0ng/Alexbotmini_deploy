@@ -23,8 +23,8 @@ class robot_config:
     #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45, '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1, '6' : 1}
-    kps = np.array([180, 120, 180, 180, 45, 45, 180, 120, 180, 180, 45, 45], dtype=np.double)*0.6
-    kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)*0.8
+    kps = np.array([180, 120, 180, 180, 45, 45, 180, 120, 180, 180, 45, 45], dtype=np.double)*1
+    kds = np.array([ 10, 12, 12, 10, 4, 4, 10, 12, 12, 10, 4, 4,], dtype=np.double)*1
 
     target_q_limit = np.array([60, 18, 18, 60, 10, 10, 60, 18, 18 , 60, 10, 10,], dtype=np.double)
     target_q_limit = np.deg2rad(target_q_limit)
@@ -236,7 +236,7 @@ class robot:
 
 
                 target_q = action * robot_config.action_scale + default_angle_rad
-                target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
+                # target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
                 target_q_degree = np.rad2deg(target_q)  # 转换为角度
                 self.sim_actions.append(target_q_degree.clone()) #degree
                 # print('sim_actions', self.sim_actions)

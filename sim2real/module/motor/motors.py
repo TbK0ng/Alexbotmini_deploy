@@ -8,9 +8,11 @@ import struct
 import socket
 fsa_socket = fi_fsa_v2.fsa_socket
 fsa_port_fast = fi_fsa_v2.fsa_port_fast
-kps = np.array([120, 90, 90, 120, 30, 30, 120, 90, 90, 120, 30, 30], dtype=np.double)
-kds = np.array([10, 8, 8, 10, 2.5, 2.5, 10, 8, 8, 10, 2.5, 2.5,], dtype=np.double)
-
+# stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
+# damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
+kps = np.array([180, 200, 120, 180, 120, 120, 180, 200, 120, 180, 120, 120], dtype=np.double)*0.4
+kds = np.array([ 10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6,], dtype=np.double)*0.6
+default_joint_angles=np.array([-12, 0, 0, 18, 10, 10, 12, 0, 0, -18, -10, 10], dtype=np.double)
 def fast_get_pvc_group(server_ips):
     # send request
     for i in range(len(server_ips)):
@@ -125,13 +127,17 @@ class MOTOR:
 if __name__ == "__main__":
     motor = MOTOR()
     server_ip_list = motor.get_motors_ip()
+    motor.set_pd_imm_all(kps, kds)
     motor.set_position_mode()
 
     # 假设要设置的目标位置，这里示例为全0位置，你可以替换为实际需要的目标位置数组
     while 1:
-        # target_position1 = [10,10,10,10,10,10,10,10,10,10,10,10]
+        
         target_position2 = [0,0,0,0,0,0,0,0,0,0,0,0]
         # motor.set_position(target_position1)
         motor.set_position(target_position2)
+        time.sleep(1)
+        motor.set_position(default_joint_angles)
+        time.sleep(1)
 
     
