@@ -11,9 +11,17 @@ fsa_port_fast = fi_fsa_v2.fsa_port_fast
 # stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
 # damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
 kps = np.array([180, 200, 120, 180, 120, 120, 180, 200, 120, 180, 120, 120], dtype=np.double)*0.4
-kds = np.array([ 10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6,], dtype=np.double)*0.6
+kds = np.array([ 10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6,], dtype=np.double)*0.7
 default_joint_angles=np.array([-12, 0, 0, 18, 10, 10, 12, 0, 0, -18, -10, 10], dtype=np.double)
+
+
 def fast_get_pvc_group(server_ips):
+    # 初始化上一帧数据
+    prev_feedback = None
+    prev_position = None
+    prev_velocity = None
+    prev_current = None
+
     # send request
     for i in range(len(server_ips)):
         server_ip = server_ips[i]
@@ -22,11 +30,13 @@ def fast_get_pvc_group(server_ips):
             fsa_socket.sendto(tx_messages, (server_ip, fsa_port_fast))
         except Exception as e:
             print('send error', server_ip, e)
+
     # get response
     response = {}
     for i in range(len(server_ips)):
         server_ip = server_ips[i]
         response.update({server_ip: {}})
+
     for i in range(len(server_ips)):
         server_ip = server_ips[i]
         try:
@@ -39,6 +49,7 @@ def fast_get_pvc_group(server_ips):
         except socket.timeout:  # fail after 1 second of no activity
             print('recv timeout', server_ip)
             continue
+
     # data parse
     feedbacks = []
     positions = []
@@ -48,17 +59,77 @@ def fast_get_pvc_group(server_ips):
         server_ip = server_ips[i]
         data = response.get(server_ip).get("data")
         if data is None:
-            # feedback, position, velocity, current = None, None, None, None
-            feedback, position, velocity, current = 0, 0, 0, 0
+            if prev_feedback is not None:
+                feedback = prev_feedback
+                position = prev_position
+                velocity = prev_velocity
+                current = prev_current
+            else:
+                # 如果上一帧数据也为空，则使用默认值
+                feedback, position, velocity, current = 0, 0, 0, 0
         else:
             feedback, position, velocity, current = struct.unpack(
                 ">Bfff", data[0 : 1 + 4 + 4 + 4]
             )
+            # 更新上一帧数据
+            prev_feedback = feedback
+            prev_position = position
+            prev_velocity = velocity
+            prev_current = current
+
         feedbacks.append(feedback)
         positions.append(position)
         velocitys.append(velocity)
         currents.append(current)
+
     return positions, velocitys, currents
+
+# def fast_get_pvc_group(server_ips):
+#     # send request
+#     for i in range(len(server_ips)):
+#         server_ip = server_ips[i]
+#         tx_messages = struct.pack(">B", 0x1A)
+#         try:
+#             fsa_socket.sendto(tx_messages, (server_ip, fsa_port_fast))
+#         except Exception as e:
+#             print('send error', server_ip, e)
+#     # get response
+#     response = {}
+#     for i in range(len(server_ips)):
+#         server_ip = server_ips[i]
+#         response.update({server_ip: {}})
+#     for i in range(len(server_ips)):
+#         server_ip = server_ips[i]
+#         try:
+#             data, address = fsa_socket.recvfrom(1024)
+#             recv_ip, recv_port = address
+#             if recv_ip not in server_ips:
+#                 continue
+#             # print(recv_ip)
+#             response.get(recv_ip).update({"data": data})
+#         except socket.timeout:  # fail after 1 second of no activity
+#             print('recv timeout', server_ip)
+#             continue
+#     # data parse
+#     feedbacks = []
+#     positions = []
+#     velocitys = []
+#     currents = []
+#     for i in range(len(server_ips)):
+#         server_ip = server_ips[i]
+#         data = response.get(server_ip).get("data")
+#         if data is None:
+#             # feedback, position, velocity, current = None, None, None, None
+#             # feedback, position, velocity, current = 0, 0, 0, 0
+#         else:
+#             feedback, position, velocity, current = struct.unpack(
+#                 ">Bfff", data[0 : 1 + 4 + 4 + 4]
+#             )
+#         feedbacks.append(feedback)
+#         positions.append(position)
+#         velocitys.append(velocity)
+#         currents.append(current)
+#     return positions, velocitys, currents
 
 class MOTOR:
     def __init__(self):
@@ -136,7 +207,7 @@ if __name__ == "__main__":
         target_position2 = [0,0,0,0,0,0,0,0,0,0,0,0]
         # motor.set_position(target_position1)
         motor.set_position(target_position2)
-        time.sleep(1)
+        time.sleep(0.5)
         motor.set_position(default_joint_angles)
         time.sleep(1)
 

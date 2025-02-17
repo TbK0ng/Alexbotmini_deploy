@@ -81,7 +81,7 @@ action = np.zeros((robot_config.num_actions), dtype=np.double)
 
 class cmd:
     # TODO: changed into joystick
-    vx = 0.0
+    vx = 0.1
     vy = 0.0
     dyaw = 0.0
 
@@ -175,6 +175,8 @@ class robot:
             dq = dq[-12:]
             q = np.array(q)
             dq = np.array(dq)
+            q_rad=np.deg2rad(q)
+            dq_rad=np.deg2rad(dq)
 
             if count_lowlevel % 1 == 0:
                 obs = np.zeros([1, robot_config.env.num_single_obs], dtype=np.float32)
@@ -188,8 +190,8 @@ class robot:
                 obs[0, 2] = cmd.vx * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 3] = cmd.vy * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 4] = cmd.dyaw * robot_config.normalization.obs_scales.ang_vel
-                obs[0, 5:17] = (q*3.14/180-default_angle*3/14/180)* robot_config.normalization.obs_scales.dof_pos
-                obs[0, 17:29] = dq*3.14/180* robot_config.normalization.obs_scales.dof_vel
+                obs[0, 5:17] = (q_rad-default_angle*3.14/180)* robot_config.normalization.obs_scales.dof_pos
+                obs[0, 17:29] = dq_rad* robot_config.normalization.obs_scales.dof_vel
                 obs[0, 29:41] = action
                 obs[0, 41:44] = gvec
                 obs[0, 44:47] = eu_ang
