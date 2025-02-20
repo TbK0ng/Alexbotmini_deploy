@@ -42,7 +42,6 @@ class robot_config:
         clip_observations = 18.
         clip_actions = 18.
     
-
     class env:
         # change the observation dim
         frame_stack = 15
@@ -73,18 +72,15 @@ baudrate = 115200
 n = 1
 imu = IMU(port, baudrate)
 
-
 # robot init
 target_q = np.zeros((robot_config.num_actions), dtype=np.double)
 action = np.zeros((robot_config.num_actions), dtype=np.double)
 
 class cmd:
     # TODO: changed into joystick
-    
     vx = 0.0
     vy = 0.0
     dyaw = 0.0
-
 
 ######################################################################
 class robot:
@@ -183,8 +179,8 @@ class robot:
                 obs[0, 5:17] = (q-default_angle_rad)* robot_config.normalization.obs_scales.dof_pos
                 obs[0, 17:29] = dq* robot_config.normalization.obs_scales.dof_vel
                 obs[0, 29:41] = action
-                obs[0, 41:44] = omega
-                obs[0, 44:47] = eu_ang
+                obs[0, 41:44] = omega  # angular velocity
+                obs[0, 44:47] = eu_ang # euler angle
                 # Limit the data within the range from -cfg.normalization.clip_observations to cfg.normalization.clip_observations
                 obs = np.clip(obs, -robot_config.normalization.clip_observations, robot_config.normalization.clip_observations)
                 print('obs[0, 0] ', obs[0, 0] )
@@ -210,9 +206,7 @@ class robot:
                 action = np.clip(action, -robot_config.normalization.clip_actions, robot_config.normalization.clip_actions)
                 target_q = action * robot_config.action_scale + default_angle_rad
 
-
                 ############# 并联脚 ##################
-
 
                 target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
                 motor.set_position(np.rad2deg(target_q))  # 设置电机位置时转换回角度
@@ -228,9 +222,7 @@ class robot:
                     time.sleep(dt - execution_time)
                 print(f"exec_time: {execution_time} ")
 
-            count_lowlevel += 1
-
-            
+            count_lowlevel += 1    
             # # Generate PD control
             # tau = utils.pd_control(target_q, q, robot_config.kps, target_dq, dq, robot_config.kds)  # Calc torques
             # tau = np.clip(tau, -robot_config.tau_limit, robot_config.tau_limit)  # Clamp torques
@@ -238,6 +230,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/test06_20250217/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test06_20250217(canuse)/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy)
