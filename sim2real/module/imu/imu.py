@@ -44,6 +44,7 @@ class IMU:
                     latest_hipnuc_frame = hipnuc_frames[-1]
                     if latest_hipnuc_frame.frame_type is not None:
                         # 提取并转换四元数数据
+                        # wxyz
                         extract_quat_start = time.time()
                         self.quat_data = np.array(latest_hipnuc_frame.quat, dtype=np.double)
                         extract_quat_end = time.time()

@@ -22,7 +22,7 @@ class robot_config:
     #     PD Drive parameters:
     #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
-    kps = np.array([180, 180, 120, 180, 120, 120, 180, 180, 120, 180, 120, 120], dtype=np.double)*0.35
+    kps = np.array([180, 180, 120, 180, 120, 120, 180, 180, 120, 180, 120, 120], dtype=np.double)*0.4
     kds = np.array([ 10, 8, 8, 10, 5, 5, 10,8, 8, 10, 5, 5,], dtype=np.double)*0.8
 
     target_q_limit = np.array([90, 36, 36, 90, 45, 45, 90, 36, 36 , 90, 45, 45,], dtype=np.double)

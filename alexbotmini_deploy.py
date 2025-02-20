@@ -22,9 +22,10 @@ class robot_config:
     #     PD Drive parameters:
     # stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
     # damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
-    kps = np.array([180, 180, 180, 180, 60, 60, 180, 180, 180, 180, 60, 60], dtype=np.double)
-    kds = np.array([ 10, 12, 12, 10, 4, 4, 10,12, 12, 10, 4, 4,], dtype=np.double)
-    target_q_limit = np.array([60, 18, 18, 60, 45, 45, 60, 18, 18 , 60, 45, 45,], dtype=np.double)
+    kps = np.array([180, 200, 120, 180, 120, 120, 180, 200, 120, 180, 120, 120], dtype=np.double) * 0.4
+    kds = np.array([10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6], dtype=np.double) * 0.8
+
+    target_q_limit = np.array([60, 36, 36, 60, 45, 45, 60, 36, 36, 60, 45, 45,], dtype=np.double)
     target_q_limit = np.deg2rad(target_q_limit)
     initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
     default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
@@ -237,6 +238,6 @@ class robot:
 
 if __name__ == '__main__':
     device = torch.device("cpu")
-    policy = torch.jit.load('sim2real/loadmodel/test05_20250213/policy_1.pt', map_location=device)
+    policy = torch.jit.load('sim2real/loadmodel/test06_20250217/policy_1.pt', map_location=device)
     robot = robot()  # 创建robot类实例
     robot.run_alexbotmini(policy)

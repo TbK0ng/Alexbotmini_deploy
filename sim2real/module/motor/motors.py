@@ -11,7 +11,7 @@ fsa_port_fast = fi_fsa_v2.fsa_port_fast
 # stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
 # damping = {'1': 10, '2': 8, '3': 8.0, '4': 10, '5': 2.5 , '6' : 2.5}
 kps = np.array([180, 200, 120, 180, 120, 120, 180, 200, 120, 180, 120, 120], dtype=np.double)*0.4
-kds = np.array([ 10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6,], dtype=np.double)*0.7
+kds = np.array([ 10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6,], dtype=np.double)*0.8
 default_joint_angles=np.array([-12, 0, 0, 18, 10, 10, 12, 0, 0, -18, -10, 10], dtype=np.double)
 
 

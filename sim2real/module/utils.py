@@ -9,17 +9,27 @@ class utils:
         返回值：欧拉角数组，格式为 [Roll, Pitch, Yaw]，单位为弧度
         """
         w, x, y, z = quat
-        # woll, pitch, yaw
+        # roll, pitch, yaw
 
-      # Pitch (y-axis rotation)
+    #     # Pitch (y-axis rotation)
+    #     t0 = +2.0 * (w * y - z * x)
+    #     t1 = +1.0 - 2.0 * (y * y + z * z)
+    #     roll_x = np.arctan2(t0, t1)
+
+    #     # Roll (x-axis rotation)
+    #     t2 = +2.0 * (w * x + y * z)
+    #     t2 = np.clip(t2, -1.0, 1.0)
+    #     pitch_y = np.arcsin(t2)
+
+        # Pitch (y-axis rotation)
         t0 = +2.0 * (w * y - z * x)
         t1 = +1.0 - 2.0 * (y * y + z * z)
-        roll_x = np.arctan2(t0, t1)
+        pitch_y= np.arctan2(t0, t1)
 
         # Roll (x-axis rotation)
         t2 = +2.0 * (w * x + y * z)
         t2 = np.clip(t2, -1.0, 1.0)
-        pitch_y = np.arcsin(t2)
+        roll_x = np.arcsin(t2)
 
         # Yaw (z-axis rotation)
         t3 = +2.0 * (w * z + x * y)
