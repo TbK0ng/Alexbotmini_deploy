@@ -6,8 +6,10 @@ from.parsers.hipnuc_serial_parser import hipnuc_parser
 
 class IMU:
     def __init__(self, port, baudrate):
-        self.quat_data = None
-        self.gvec_data = None
+        self.quat_data = [1,0,0,0]
+        self.gvec_data = [0,0,0]
+        # self.quat_data = None
+        # self.gvec_data = None
         self.ser = serial.Serial(port, int(baudrate), timeout=1)
         self.serial_parser = hipnuc_parser()
 
@@ -39,6 +41,7 @@ class IMU:
                 hipnuc_frames = self.serial_parser.parse(data)
                 parse_data_end = time.time()
                 print(f"解析数据用时: {parse_data_end - parse_data_start:.6f} 秒")
+                print(hipnuc_frames)
 
                 if hipnuc_frames:
                     latest_hipnuc_frame = hipnuc_frames[-1]
@@ -51,6 +54,7 @@ class IMU:
                         print(f"提取并转换四元数数据用时: {extract_quat_end - extract_quat_start:.6f} 秒")
 
                         # 提取并转换陀螺仪数据
+                        # omega in rad/s
                         extract_gvec_start = time.time()
                         self.gvec_data = np.array(latest_hipnuc_frame.gyr, dtype=np.double) * (np.pi / 180)
                         extract_gvec_end = time.time()
@@ -63,5 +67,6 @@ class IMU:
 
         total_end_time = time.time()
         print(f"整个函数用时: {total_end_time - total_start_time:.6f} 秒")
+        print(self.quat_data, self.gvec_data)
 
         return self.quat_data, self.gvec_data

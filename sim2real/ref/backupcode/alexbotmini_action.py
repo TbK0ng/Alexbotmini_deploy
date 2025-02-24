@@ -4,47 +4,45 @@ import numpy as np
 import torch
 from tqdm import tqdm
 from collections import deque
-import matplotlib.pyplot as plt
 
+# import robot config
+# from scipy.spatial.transform import Rotation as R
+# from config.custom.alexbotmini_config import alexbotminiCfg as cfg
 
 # import module motor
-# 这里假设MOTOR类已经定义，并且有相应的方法
 from sim2real.module.motor.motors import MOTOR
 from sim2real.module.utils import utils
 
 # import module imu
-# 这里假设IMU类已经定义，并且有相应的方法
 from sim2real.module.imu.imu import IMU
-
 
 ######################################################################
 # init robot & add robot config
 class robot_config:
     #     PD Drive parameters:
-    #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45, '6': 45}
-    #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1, '6' : 1}
-    kps = np.array([180, 200, 120, 180, 120, 120, 180, 200, 120, 180, 120, 120], dtype=np.double) * 0.4
-    kds = np.array([10, 8, 8, 10, 6, 6, 10, 8, 8, 10, 6, 6], dtype=np.double) * 0.8
+    #     stiffness = {'1': 180.0, '2': 120.0, '3': 120.0, '4': 180.0, '5': 45 , '6': 45}
+    #     damping = {'1': 3, '2': 2, '3': 2, '4': 3, '5': 1 , '6' : 1}
+    kps = np.array([180, 180, 120, 180, 120, 120, 180, 180, 120, 180, 120, 120], dtype=np.double)*0.35
+    kds = np.array([ 10, 8, 8, 10, 5, 5, 10,8, 8, 10, 5, 5,], dtype=np.double)*0.8
 
-    target_q_limit = np.array([60, 18, 18, 60, 10, 10, 60, 18, 18 , 60, 10, 10,], dtype=np.double)
+    target_q_limit = np.array([90, 36, 36, 90, 45, 45, 90, 36, 36 , 90, 45, 45,], dtype=np.double)
     target_q_limit = np.deg2rad(target_q_limit)
-    initial_position = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
-    default_joint_angles = np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
+    initial_position=np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.double)
+    default_joint_angles=np.array([-10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8], dtype=np.double)
     # -10, 0, 0, 18, 8, 8, 10, 0, 0, -18, -8, 8
-    num_actions = 12
+    num_actions=12
     action_scale = 0.25
-
     class normalization:
-        class obs_scales:
-            lin_vel = 2. 
-            ang_vel = 1.
+        class obs_scales: 
+            lin_vel = 2.
+            ang_vel = 1. 
             dof_pos = 1.
             dof_vel = 0.05
             quat = 1.
             height_measurements = 5.0
-
         clip_observations = 18.
         clip_actions = 18.
+    
 
     class env:
         # change the observation dim
@@ -58,13 +56,11 @@ class robot_config:
         num_envs = 2048
         episode_length_s = 24  # episode length in seconds
         use_ref_actions = False
-
-
 # motor init
 server_ip_list = ['192.168.137.101', '192.168.137.102', '192.168.137.103',
                   '192.168.137.104', '192.168.137.105', '192.168.137.106',
                   '192.168.137.107', '192.168.137.108', '192.168.137.109',
-                  '192.168.137.110', '192.168.137.111', '192.168.137.112'
+                  '192.168.137.110', '192.168.137.111', '192.168.137.112'   
                   ]
 motors_num = 12
 server_ip_list_test = []
@@ -83,10 +79,9 @@ imu = IMU(port, baudrate)
 target_q = np.zeros((robot_config.num_actions), dtype=np.double)
 action = np.zeros((robot_config.num_actions), dtype=np.double)
 
-
 class cmd:
     # TODO: changed into joystick
-    vx = 0.0
+    vx = 0.1
     vy = 0.0
     dyaw = 0.0
 
@@ -95,8 +90,6 @@ class cmd:
 class robot:
     def __init__(self):
         self.init()
-        self.sim_actions = []
-        self.real_actions = []  # 初始化存储实际动作的列表
 
     def init(self):
         # motor init， FFTAI_fsa position control is base on current(force) control
@@ -115,16 +108,16 @@ class robot:
         # imu.cmd_read(port, baudrate)
 
     def get_obs(self):
-        t0 = time.time()
+        t0=time.time()
         motor.get_pvc()
-        print("get_pvc time:", time.time() - t0)
-        t0 = time.time()
+        print("get_pvc time:", time.time()-t0)
+        t0=time.time()
         quat, gvec = imu.cmd_read()
-        print("imu_cmd_read time:", time.time() - t0)
+        print("imu_cmd_read time:", time.time()-t0)
+        # quat = np.zeros(4)
+        # gvec = np.zeros(3)
         q = motor.q
         dq = motor.dq
-        q_rad = np.array(q) * 3.14 / 180  # 将角度转换为弧度
-        self.real_actions.append(q)  # 将转换后的弧度数据添加到real_actions列表中
         # print("quat value:", quat)
         # print("gvec value:", gvec)
         return (q, dq, quat, gvec)
@@ -147,7 +140,7 @@ class robot:
 
         count_lowlevel = 0
 
-        default_angle = np.zeros((robot_config.num_actions), dtype=np.double)
+        default_angle = np.zeros((robot_config.num_actions),dtype=np.double)
 
         default_angle[0] = robot_config.default_joint_angles[0]
         default_angle[1] = robot_config.default_joint_angles[1]
@@ -155,17 +148,15 @@ class robot:
         default_angle[3] = robot_config.default_joint_angles[3]
         default_angle[4] = robot_config.default_joint_angles[4]
         default_angle[5] = robot_config.default_joint_angles[5]
-        default_angle[6] = robot_config.default_joint_angles[6]
+        default_angle[6] = robot_config.default_joint_angles[6] 
         default_angle[7] = robot_config.default_joint_angles[7]
         default_angle[8] = robot_config.default_joint_angles[8]
         default_angle[9] = robot_config.default_joint_angles[9]
         default_angle[10] = robot_config.default_joint_angles[10]
         default_angle[11] = robot_config.default_joint_angles[11]
-        default_angle_rad = np.deg2rad(default_angle)
 
         pt = 0
-        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions_mujoco.pt',
-                                    map_location=device)
+        loaded_actions = torch.load('/home/alexhuge/Documents/GitHub/Alexbotmini_deploy/all_actions_mujoco.pt', map_location=device)
         dt = 0.01
         while True:
 
@@ -184,6 +175,8 @@ class robot:
             dq = dq[-12:]
             q = np.array(q)
             dq = np.array(dq)
+            q_rad=np.deg2rad(q)
+            dq_rad=np.deg2rad(dq)
 
             if count_lowlevel % 1 == 0:
                 obs = np.zeros([1, robot_config.env.num_single_obs], dtype=np.float32)
@@ -191,13 +184,14 @@ class robot:
                 eu_ang = utils.quaternion_to_euler_array(quat)
                 eu_ang[eu_ang > math.pi] -= 2 * math.pi
 
+               
                 obs[0, 0] = math.sin(2 * math.pi * count_lowlevel * 0.001 / 0.64)
                 obs[0, 1] = math.cos(2 * math.pi * count_lowlevel * 0.001 / 0.64)
                 obs[0, 2] = cmd.vx * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 3] = cmd.vy * robot_config.normalization.obs_scales.lin_vel
                 obs[0, 4] = cmd.dyaw * robot_config.normalization.obs_scales.ang_vel
-                obs[0, 5:17] = (q * 3.14 / 180 - default_angle * 3.14 / 180) * robot_config.normalization.obs_scales.dof_pos
-                obs[0, 17:29] = dq * 3.14 / 180 * robot_config.normalization.obs_scales.dof_vel
+                obs[0, 5:17] = (q_rad-default_angle*3.14/180)* robot_config.normalization.obs_scales.dof_pos
+                obs[0, 17:29] = dq_rad* robot_config.normalization.obs_scales.dof_vel
                 obs[0, 29:41] = action
                 obs[0, 41:44] = gvec
                 obs[0, 44:47] = eu_ang
@@ -219,67 +213,38 @@ class robot:
 
                 policy_input = np.zeros([1, robot_config.env.num_observations], dtype=np.float32)
                 for i in range(robot_config.env.frame_stack):
-                    policy_input[0, i * robot_config.env.num_single_obs:(i + 1) * robot_config.env.num_single_obs] = \
-                        hist_obs[i][0, :]
+                    policy_input[0, i * robot_config.env.num_single_obs:(i + 1) * robot_config.env.num_single_obs] = hist_obs[i][0, :]
                 policy_input = torch.tensor(policy_input)
                 print('policy_input_time', time.time() - t0)
-
+               
                 t0 = time.time()
                 action = policy(policy_input)[0].detach().numpy()
-                print('policy_deduce_time', time.time() - t0) 
+                print('policy_deduce_time', time.time() - t0)
                 ######################## action time  #############################
                 t0 = time.time()
                 action = np.clip(action, -robot_config.normalization.clip_actions, robot_config.normalization.clip_actions)
                 pt += 1
                 action = loaded_actions[pt]
-                
-
-
-                target_q = action * robot_config.action_scale + default_angle_rad
-                # target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
-                target_q_degree = np.rad2deg(target_q)  # 转换为角度
-                self.sim_actions.append(target_q_degree.clone()) #degree
-                # print('sim_actions', self.sim_actions)
-
-                motor.set_position(target_q_degree)  # 设置电机位置时转换回角度
+                target_q = action * robot_config.action_scale + default_angle*3.14/180
+                target_q = np.clip(target_q, -robot_config.target_q_limit, robot_config.target_q_limit)  # rad
+                motor.set_position(target_q * 180 / 3.14)  # 设置电机位置时转换回角度
                 # print('target_q = :(rad)', target_q)  # rad
-                print('target_q = :(deg),pt', target_q_degree, pt)  # deg
+                print('target_q = :(deg),pt', target_q * 180 / 3.14,pt)  # deg
                 print('set_position_time', time.time() - t0)
                 # motor.set_position(target_q)
                 end_time = time.time()
                 execution_time = end_time - start_time
                 if execution_time < dt:
                     time.sleep(dt - execution_time)
-                print(f"exec_time: {execution_time} {pt} ")
+                print(f"exec_time: {execution_time} {pt} ") 
+                
 
             count_lowlevel += 1
 
-            # 当达到一定步数后，绘制图片
-            if count_lowlevel % (600 - 1) == 0:
-                self.plot_sim_actions()
-
+            
             # # Generate PD control
             # tau = utils.pd_control(target_q, q, robot_config.kps, target_dq, dq, robot_config.kds)  # Calc torques
             # tau = np.clip(tau, -robot_config.tau_limit, robot_config.tau_limit)  # Clamp torques
-
-    def plot_sim_actions(self):
-        num_actions = len(self.sim_actions[0])
-        num_steps = len(self.sim_actions)
-
-        plt.figure(figsize=(15, 10))
-        for i in range(num_actions):
-            sim_action = [action[i] for action in self.sim_actions]
-            real_action = [action[i] for action in self.real_actions]  # 获取实际动作的第i个关节值
-            plt.subplot(3, 4, i + 1)
-            plt.plot(range(num_steps), sim_action, label=f'Simulated Action {i + 1}')
-            plt.plot(range(num_steps), real_action, label=f'Real Action {i + 1}')  # 绘制实际动作曲线
-            plt.title(f'Simulated and Real Action {i + 1}')
-            plt.xlabel('Step')
-            plt.ylabel('Value(deg)')
-            plt.legend()
-
-        plt.tight_layout()
-        plt.show()
 
 
 if __name__ == '__main__':
